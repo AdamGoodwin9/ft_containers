@@ -5,7 +5,7 @@ namespace lib = std;
 
 namespace me
 {
-    template <typename T, typename Alloc=std::allocator<T> >
+    template < class T, class Alloc = std::allocator<T> >
     class vector
     {
     private:
@@ -49,12 +49,12 @@ namespace me
         template <class InputIterator>
         vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
         {
-
+            
         }
 
         vector(const vector& x)
         {
-            *this = x;            
+            *this = x;
         }
 
         ~vector()
