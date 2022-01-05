@@ -31,17 +31,17 @@ namespace me
     };
 
     template <class T>
-    class bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
+    class bidirectional_iterator : me::iterator<me::bidirectional_iterator_tag, T>
     {
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category     iterator_category;
+        typedef typename me::iterator<me::bidirectional_iterator_tag, T>::iterator_category     iterator_category;
 
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type            value_type;
+        typedef typename me::iterator<me::bidirectional_iterator_tag, T>::value_type            value_type;
 
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::difference_type       difference_type;
+        typedef typename me::iterator<me::bidirectional_iterator_tag, T>::difference_type       difference_type;
 
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::pointer               pointer;
+        typedef typename me::iterator<me::bidirectional_iterator_tag, T>::pointer               pointer;
 
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::reference             reference;
+        typedef typename me::iterator<me::bidirectional_iterator_tag, T>::reference             reference;
 
         private:
             pointer _elem;
