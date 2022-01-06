@@ -27,7 +27,19 @@ void vectorIterators()
     std::cout << std::endl;
 }
 
+void vectorCapacity()
+{
+    lib::vector<int> v;
+    for (int i = 1; i <= 20; i++)
+    {
+        std::cout << v.capacity() << " ";
+        v.push_back(i);
+    }
+    std::cout << std::endl;
+}
+
 void vectorTest()
 {
     vectorIterators();
+    vectorCapacity();
 }

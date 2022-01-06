@@ -1,18 +1,15 @@
 #ifndef vector_HPP
 #define vector_HPP
 
+#include "iterator.hpp"
+
 namespace lib = std;
 
 namespace me
 {
     template < class T, class Alloc = std::allocator<T> >
     class vector
-    {
-    private:
-        T* _arr;
-        int _capacity;
-        int _size;
-        
+    {   
     public:
         //Member types
         typedef T value_type;
@@ -30,12 +27,19 @@ namespace me
         typedef std::vector<int>::reverse_iterator reverse_iterator;
         typedef std::vector<int>::const_reverse_iterator const_reverse_iterator;
         
-        typedef ptrdiff_t difference_type;
-        typedef size_t size_type;
+        typedef iterator_traits<iterator>::difference_type difference_type;
+        typedef typename allocator_type::size_type size_type;
 
+    private:
+        pointer _array;
+        size_type _size;
+        size_type _capacity;
+        allocator_type  _allocator;
+
+    public:
         //Member functions
         explicit vector (const allocator_type& alloc = allocator_type())
-                : _arr(NULL), _size(0), _capacity(0)
+                : _array(NULL), _size(0), _capacity(0)
         {
 
         }
@@ -110,22 +114,35 @@ namespace me
 #pragma region Capacity
         size_type size() const
         {
-
+            return _size;
         }
 
         size_type max_size() const
         {
-            
+            return _allocator.max_size();
         }
         
         void resize (size_type n, value_type val = value_type())
         {
+            if (n > max_size()) throw std::invalid_argument("n exceeds max_size()");
 
+            if (n <= _size)
+            {
+                for (size_t i = n; i < _size; i++)
+                {
+                    _allocator.destroy(_array[i]);
+                }
+                _size = n;
+            }
+            else
+            {
+                insert(_array + _size, n - _size, val);
+            }
         }
 
         size_type capacity() const
         {
-
+            return _capacity;
         }
 
         bool empty() const
@@ -203,7 +220,7 @@ namespace me
 
         iterator insert (iterator position, const value_type& val)
         {
-
+            //_THROW_BAD_ALLOC; //on _allocator fail?
         }
 
         void insert (iterator position, size_type n, const value_type& val)
@@ -237,10 +254,10 @@ namespace me
 
         }
 #pragma endregion Modifiers
-#pragma region Allocator
+#pragma region Allocator //done
         allocator_type get_allocator() const
         {
-
+            return _allocator;
         }
 #pragma endregion Allocator
     };
