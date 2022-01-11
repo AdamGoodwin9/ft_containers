@@ -1,7 +1,10 @@
-#ifndef vector_HPP
-#define vector_HPP
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
 
 #include "iterator.hpp"
+
+#define THROW_EXCEEDS_MAXSIZE std::__throw_invalid_argument("argument exceeds max_size()");
+#define THROW_OUT_OF_RANGE std::__throw_out_of_range("argument out of range");
 
 namespace lib = std;
 
@@ -73,27 +76,27 @@ namespace me
 #pragma region Iterators
         iterator begin()
         {
-
+            return _array;
         }
 
         const_iterator begin() const
         {
-
+            return _array;
         }
 
         iterator end()
         {
-
+            return _array + _size;
         }
 
         const_iterator end() const
         {
-            
+            return _array + _size;
         }
 
         reverse_iterator rbegin()
         {
-
+            
         }
 
         const_reverse_iterator rbegin() const
@@ -111,7 +114,7 @@ namespace me
 
         }
 #pragma endregion Iterators
-#pragma region Capacity
+#pragma region Capacity //done
         size_type size() const
         {
             return _size;
@@ -124,13 +127,13 @@ namespace me
         
         void resize (size_type n, value_type val = value_type())
         {
-            if (n > max_size()) throw std::invalid_argument("n exceeds max_size()");
+            if (n > max_size()) THROW_EXCEEDS_MAXSIZE;
 
             if (n <= _size)
             {
                 for (size_t i = n; i < _size; i++)
                 {
-                    _allocator.destroy(_array[i]);
+                    _allocator.destroy(_array + i);
                 }
                 _size = n;
             }
@@ -152,60 +155,83 @@ namespace me
 
         void reserve (size_type n)
         {
+            if (n > max_size()) THROW_EXCEEDS_MAXSIZE;
 
+            if (n <= _capacity) return;
+
+            size_type new_capacity = _capacity;
+            if (new_capacity == 0) new_capacity = 1;
+            do
+            {
+                new_capacity *= 2;
+            } while (new_capacity < n);
+            
+            pointer new_array = _allocator.allocate(new_capacity);
+            for (size_type i = 0; i < _size; i++)
+            {
+                _allocator.construct(new_array + i, _array[i]);
+            }
+
+            _allocator.deallocate(_array, _capacity);
+            _array = new_array;
+            _capacity = new_capacity;
         }
 #pragma endregion Capacity
-#pragma region Element access
+#pragma region Element access //done
         reference operator[] (size_type n)
         {
-
+            return _array[n];
         }
 
         const_reference operator[] (size_type n) const
         {
-
+            return _array[n];
         }
 
         reference at (size_type n)
         {
-            
+            if (n < 0 || n >= _size) THROW_OUT_OF_RANGE;
+
+            return *this[n];
         }
 
         const_reference at (size_type n) const
         {
+            if (n < 0 || n >= _size) THROW_OUT_OF_RANGE;
 
+            return *this[n];
         }
 
         reference front()
         {
-
+            return _array[0];
         }
 
         const_reference front() const
         {
-
+            return _array[0];
         }
 
         reference back()
         {
-
+            return _array[_size - 1];
         }
 
         const_reference back() const
         {
-
+            return _array[_size - 1];
         }
 #pragma endregion Element access
 #pragma region Modifiers
         template <class InputIterator>
         void assign (InputIterator first, InputIterator last)
         {
-
+            //range assign
         }
 
         void assign (size_type n, const value_type& val)
         {
-
+            //fill assign
         }
 
         void push_back (const value_type& val)
@@ -246,12 +272,18 @@ namespace me
 
         void swap (vector& x)
         {
+            if (*this == x) return;
 
+            pointer tmp = x._array;
         }
 
         void clear()
         {
-
+            for (size_type i = 0; i < _size; i++)
+            {
+                _allocator.destroy(_array + i);
+            }
+            _size = 0;
         }
 #pragma endregion Modifiers
 #pragma region Allocator //done
