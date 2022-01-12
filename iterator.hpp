@@ -2,6 +2,7 @@
 #define ITERATOR_HPP
 
 #include <cstddef>
+#include "utils.hpp"
 
 namespace me
 {

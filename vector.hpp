@@ -24,13 +24,14 @@ namespace me
         typedef typename allocator_type::pointer pointer;
         typedef typename allocator_type::const_pointer const_pointer;
 
-//MUST IMPLEMENT NEW TYPES FOR THESE FROM SCRATCH
-        typedef std::vector<int>::iterator iterator;
-        typedef std::vector<int>::const_iterator const_iterator;
-        typedef std::vector<int>::reverse_iterator reverse_iterator;
-        typedef std::vector<int>::const_reverse_iterator const_reverse_iterator;
+        typedef me::random_access_iterator<value_type> iterator;
+        typedef me::random_access_iterator<const value_type> const_iterator;
+
+        typedef me::reverse_iterator<iterator> reverse_iterator;
+        typedef me::reverse_iterator<const_iterator> const_reverse_iterator;
+
+        typedef typename me::iterator_traits<iterator>::difference_type difference_type;
         
-        typedef iterator_traits<iterator>::difference_type difference_type;
         typedef typename allocator_type::size_type size_type;
 
     private:
