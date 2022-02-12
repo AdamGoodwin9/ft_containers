@@ -7,8 +7,6 @@
 #define THROW_OUT_OF_RANGE std::__throw_out_of_range("argument out of range");
 
 
-namespace lib = me;
-
 namespace me
 {
     template < class T, class Alloc = std::allocator<T> >
@@ -83,7 +81,7 @@ namespace me
         {
             
         }
-#pragma region Iterators
+#pragma region Iterators //done
         iterator begin()
         {
             return _array;
@@ -171,10 +169,10 @@ namespace me
 
             size_type new_capacity = _capacity;
             if (new_capacity == 0) new_capacity = 1;
-            do
+            while (new_capacity < n)
             {
                 new_capacity *= 2;
-            } while (new_capacity < n);
+            }
             
             pointer new_array = _allocator.allocate(new_capacity);
             for (size_type i = 0; i < _size; i++)
@@ -234,15 +232,38 @@ namespace me
 #pragma endregion Element access
 #pragma region Modifiers
         template <class InputIterator>
-        void assign (InputIterator first, InputIterator last)
+        void assign (InputIterator first, InputIterator last) //maybe just call insert?
         {
             clear();
             insert(begin(), first, last);
+            //call erase, 
+			// clear();
+
+            // size_type n;
+			// for (InputIterator temp = first, n = 0; temp != last; temp++, n++);
+
+			// reserve(n);
+
+			// while (n-- != 0)
+            // {
+			// 	_alloc.construct(_first + _size++, *first++);
+            // }
         }
 
         void assign (size_type n, const value_type& val)
         {
-            //fill assign
+            // clear();
+			// if (n > _capacity)
+			// {
+			// 	_allocator.deallocate(_first, _capacity);
+            //     _capacity = n;
+			// 	_first = _alloc.allocate(_capacity);
+			// }
+
+			// while (n-- != 0)
+            // {
+			// 	_alloc.construct(_first + _size++, val);
+            // }
         }
 
         void push_back (const value_type& val)
@@ -258,18 +279,65 @@ namespace me
 
         iterator insert (iterator position, const value_type& val)
         {
-            //_THROW_BAD_ALLOC; //on _allocator fail?
+            size_type i = position - begin(); //get index of position in vector
+
+            insert(position, 1, val);
+
+            //calculate position of inserted element in case of resizing
+            return begin() + i;
         }
 
         void insert (iterator position, size_type n, const value_type& val)
         {
+            size_type index = position - begin();
+            reserve(_size + n);
+            iterator pos = begin() + index;
 
+            //move all elements over by n (from end to pos)
+            for (iterator it = end() - 1; it >= pos; it--)
+            {
+                *(it + n) = *it;
+            }
+            
+            //construct n new elements at pos
+            for (size_type i = 0; i < n; i++)
+            {
+                _allocator.construct(_array + index + i, val);
+                _size++;
+            }
         }
 
         template <class InputIterator>
-        void insert (iterator position, InputIterator first, InputIterator last)
+        void insert (iterator position, InputIterator first,
+                        typename me::enable_if<!me::is_integral<InputIterator>::value, InputIterator>::type last)
         {
+            if (!(me::is_iterator_tagged<typename me::iterator_traits<InputIterator>::iterator_category >::value))
+                throw;
+                
+            //get count of total elements to insert
+            size_type n = 0;
+			for (InputIterator ii = first; ii != last; ii++)
+            {
+				n++;
+            }
+            
+			size_type index = position - begin();
+            reserve(_size + n);
+            iterator pos = begin() + index;
 
+            //move all elements over by n (from end to pos)
+            for (iterator it = end() - 1; it >= pos; it--)
+            {
+                *(it + n) = *it;
+            }
+            
+            //construct n new elements at pos
+            for (size_type i = 0; i < n; i++)
+            {
+                _allocator.construct(_array + index + i, *first);
+                first++;
+                _size++;
+            }
         }
 
         iterator erase (iterator position)

@@ -1,6 +1,15 @@
 #include <iostream>
-#include <vector>
-#include "vector.hpp"
+#include "Tests.hpp"
+
+void vectorPrint(lib::vector<int> v)
+{
+    std::cout << "Vector contains:";
+    for (lib::vector<int>::iterator it=v.begin(); it < v.end(); it++)
+    {
+        std::cout << " " << *it;
+    }
+    std::cout << '\n';
+}
 
 void vectorIterators()
 {
@@ -38,8 +47,40 @@ void vectorCapacity()
     std::cout << std::endl;
 }
 
+void vectorModifiers()
+{
+    lib::vector<int> myvector (3, 100);
+    // 100 100 100
+    lib::vector<int>::iterator it;
+
+    vectorPrint(myvector);
+
+    it = myvector.begin();
+    it = myvector.insert (it, 200);
+    // 200 100 100 100
+    vectorPrint(myvector);
+
+    myvector.insert (it, 2, 300);
+    // 300 300 200 100 100
+    vectorPrint(myvector);
+
+    // "it" no longer valid, get a new one:
+    it = myvector.begin();
+
+    lib::vector<int> anothervector (2, 400);
+    myvector.insert (it + 2, anothervector.begin(), anothervector.end());
+    //300 300 400 400 200 100 100 100
+    vectorPrint(myvector);
+
+    int myarray [] = { 501,502,503 };
+    myvector.insert (myvector.begin(), myarray, myarray + 3);
+    //501 502 503 300 300 400 400 200 100 100 100
+    vectorPrint(myvector);
+}
+
 void vectorTest()
 {
-    vectorIterators();
-    vectorCapacity();
+    vectorModifiers();
+    // vectorIterators();
+    // vectorCapacity();
 }
