@@ -291,16 +291,18 @@ namespace me
             //construct n new elements at pos
             for (size_type i = 0; i < n; i++)
             {
-                _allocator.construct(pos + i, val);
+                _allocator.construct(_array + index + i, val);
                 _size++;
             }
         }
 
         template <class InputIterator>
-        void insert (iterator position, InputIterator first, InputIterator last)
+        void insert (iterator position, InputIterator first,
+                        typename me::enable_if<!me::is_integral<InputIterator>::value, InputIterator>::type last)
         {
-            // if (!(me::is_iterator_tagged<typename me::iterator_traits<InputIterator>::iterator_category >::value))
-            //         throw;
+            if (!(me::is_iterator_tagged<typename me::iterator_traits<InputIterator>::iterator_category >::value))
+                throw;
+                
             //get count of total elements to insert
             size_type n = 0;
 			for (InputIterator ii = first; ii != last; ii++)
@@ -321,7 +323,7 @@ namespace me
             //construct n new elements at pos
             for (size_type i = 0; i < n; i++)
             {
-                _allocator.construct(pos + i, *first);
+                _allocator.construct(_array + index + i, *first);
                 first++;
                 _size++;
             }
