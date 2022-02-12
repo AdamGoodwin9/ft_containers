@@ -251,8 +251,8 @@ namespace me
 
         void pop_back()
         {
-            _allocator.destroy(_array + size);
-            size--;
+            _allocator.destroy(_array + _size - 1);
+            _size--;
         }
 
         iterator insert (iterator position, const value_type& val)
