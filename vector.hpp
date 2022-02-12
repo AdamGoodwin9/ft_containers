@@ -6,7 +6,8 @@
 #define THROW_EXCEEDS_MAXSIZE std::__throw_invalid_argument("argument exceeds max_size()");
 #define THROW_OUT_OF_RANGE std::__throw_out_of_range("argument out of range");
 
-namespace lib = std;
+
+namespace lib = me;
 
 namespace me
 {
@@ -41,17 +42,25 @@ namespace me
         allocator_type  _allocator;
 
     public:
-        //Member functions
-        explicit vector (const allocator_type& alloc = allocator_type())
-                : _array(NULL), _size(0), _capacity(0)
+        // Member functions
+        explicit vector(const allocator_type &alloc = allocator_type())
+            : _array(u_nullptr), _size(0), _capacity(0), _allocator(alloc)
         {
-
         }
-	
-        explicit vector (size_type n, const value_type& val = value_type(),
-                 const allocator_type& alloc = allocator_type())
-        {
 
+        explicit vector(size_type n, const value_type &val = value_type(),
+                        const allocator_type &alloc = allocator_type())
+            : _array(u_nullptr), _size(n), _capacity(), _allocator(alloc)
+        {
+            reserve(n);
+            // _array = _alloc.allocate(n);
+            // _capacity = n;
+            _size = 0;
+            while (_size < n)
+            {
+                _allocator.construct(_array + _size, val);
+                _size++;
+            }
         }
 
         template <class InputIterator>
@@ -97,22 +106,22 @@ namespace me
 
         reverse_iterator rbegin()
         {
-            return reverse_iterator(this.end());
+            return reverse_iterator(this->end());
         }
 
         const_reverse_iterator rbegin() const
         {
-            return reverse_iterator(this.end());
+            return reverse_iterator(this->end());
         }
 
         reverse_iterator rend()
         {
-            return reverse_iterator(this.begin());
+            return reverse_iterator(this->begin());
         }
 
         const_reverse_iterator rend() const
         {
-            return reverse_iterator(this.begin());
+            return reverse_iterator(this->begin());
         }
 #pragma endregion Iterators
 #pragma region Capacity //done
@@ -227,7 +236,8 @@ namespace me
         template <class InputIterator>
         void assign (InputIterator first, InputIterator last)
         {
-            //range assign
+            clear();
+            insert(begin(), first, last);
         }
 
         void assign (size_type n, const value_type& val)
@@ -242,7 +252,8 @@ namespace me
 
         void pop_back()
         {
-
+            _allocator.destroy(_array + size);
+            size--;
         }
 
         iterator insert (iterator position, const value_type& val)
@@ -263,19 +274,49 @@ namespace me
 
         iterator erase (iterator position)
         {
-
+            return erase(position, position + 1);
         }
 
         iterator erase (iterator first, iterator last)
         {
+            size_type count = 0;
 
+            while (first != last)
+            {
+                _allocator.destroy(first);
+                first++;
+                count++;
+            }
+
+            iterator ret = last - count;
+            while (last != end())
+            {
+                *(last - count) = *last;
+                last++;
+            }
+            _size -= count;
+            
+            return ret;
         }
 
         void swap (vector& x)
         {
             if (*this == x) return;
 
-            pointer tmp = x._array;
+            pointer tmpArray = x._array;
+            size_type tmpSize = x._size;
+            size_type tmpCapacity = x._capacity;
+            allocator_type tmpAllocator = x._allocator; 
+            
+            x._array = this->_array;
+            x._size = this->_size;
+            x._capacity = this->_capacity;
+            x._allocator = this->_allocator;
+            
+            this->_array = tmpArray;
+            this->_size = tmpCapacity;
+            this->_capacity = tmpCapacity;
+            this->_allocator = tmpAllocator;
         }
 
         void clear()
