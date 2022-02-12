@@ -2,6 +2,7 @@
 #define VECTOR_HPP
 
 #include "iterator.hpp"
+#include <memory>
 
 #define THROW_EXCEEDS_MAXSIZE std::__throw_invalid_argument("argument exceeds max_size()");
 #define THROW_OUT_OF_RANGE std::__throw_out_of_range("argument out of range");
