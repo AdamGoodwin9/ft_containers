@@ -48,38 +48,38 @@ namespace me
 
         explicit vector(size_type n, const value_type &val = value_type(),
                         const allocator_type &alloc = allocator_type())
-            : _array(u_nullptr), _size(n), _capacity(), _allocator(alloc)
+            : _array(u_nullptr), _size(0), _capacity(0), _allocator(alloc)
         {
-            reserve(n);
-            // _array = _alloc.allocate(n);
-            // _capacity = n;
-            _size = 0;
-            while (_size < n)
-            {
-                _allocator.construct(_array + _size, val);
-                _size++;
-            }
+            assign(n, val);
         }
 
         template <class InputIterator>
-        vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+        vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
+				typename me::enable_if<!me::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
+            : _allocator(alloc), _size(0), _capacity(0), _array(u_nullptr)
         {
-            
+            assign(first, last);
         }
 
         vector(const vector& x)
+            : _allocator(x._allocator), _size(0), _capacity(0), _array(u_nullptr)
         {
             *this = x;
         }
 
         ~vector()
         {
-
+            for (size_type i = 0; i < _capacity; i++)
+				_allocator.destroy(_array + i);
+			_allocator.deallocate(_array, _capacity);
         }
 
         vector& operator=(const vector& x)
         {
-            
+            if (x == *this)
+                return *this;
+            assign(x.begin(), x.end());
+            return *this;
         }
 #pragma region Iterators //done
         iterator begin()
@@ -232,7 +232,8 @@ namespace me
 #pragma endregion Element access
 #pragma region Modifiers
         template <class InputIterator>
-        void assign (InputIterator first, InputIterator last) //maybe just call insert?
+        void assign (InputIterator first, InputIterator last,
+			        typename me::enable_if<!me::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
         {
             clear();
             insert(begin(), first, last);
@@ -241,7 +242,7 @@ namespace me
         void assign (size_type n, const value_type& val)
         {
             clear();
-            insert(n, val);
+            insert(begin(), n, val);
         }
 
         void push_back (const value_type& val)
@@ -286,11 +287,11 @@ namespace me
         }
 
         template <class InputIterator>
-        void insert (iterator position, InputIterator first,
-                        typename me::enable_if<!me::is_integral<InputIterator>::value, InputIterator>::type last)
+        void insert (iterator position, InputIterator first, InputIterator last,
+			        typename me::enable_if<!me::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
         {
             if (!(me::is_iterator_tagged<typename me::iterator_traits<InputIterator>::iterator_category >::value))
-                throw;
+                throw std::exception("Invalid iterator type");
                 
             //get count of total elements to insert
             size_type n = 0;
@@ -381,6 +382,24 @@ namespace me
         }
 #pragma endregion Allocator
     };
+    //Non-member functions
+
+    template <class T, class Alloc>
+    bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+    {
+        if (lhs.size() != rhs.size())
+            return (false);
+        typename me::vector<T>::const_iterator first1 = lhs.begin();
+        typename me::vector<T>::const_iterator first2 = rhs.begin();
+        while (first1 != lhs.end())
+        {
+            if (first2 == rhs.end() || *first1 != *first2)
+                return (false);
+            ++first1;
+            ++first2;
+        }
+        return (true);
+    }
 }
 
 #endif
