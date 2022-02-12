@@ -236,39 +236,17 @@ namespace me
         {
             clear();
             insert(begin(), first, last);
-            //call erase, 
-			// clear();
-
-            // size_type n;
-			// for (InputIterator temp = first, n = 0; temp != last; temp++, n++);
-
-			// reserve(n);
-
-			// while (n-- != 0)
-            // {
-			// 	_alloc.construct(_first + _size++, *first++);
-            // }
         }
 
         void assign (size_type n, const value_type& val)
         {
-            // clear();
-			// if (n > _capacity)
-			// {
-			// 	_allocator.deallocate(_first, _capacity);
-            //     _capacity = n;
-			// 	_first = _alloc.allocate(_capacity);
-			// }
-
-			// while (n-- != 0)
-            // {
-			// 	_alloc.construct(_first + _size++, val);
-            // }
+            clear();
+            insert(n, val);
         }
 
         void push_back (const value_type& val)
         {
-
+            insert(end(), val);
         }
 
         void pop_back()
