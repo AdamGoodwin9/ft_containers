@@ -1,7 +1,7 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
-namespace me
+namespace ft
 {
     template<bool Condition, class T = void> struct enable_if {};
     template<class T> struct enable_if<true, T> { typedef T type; };
@@ -136,45 +136,45 @@ namespace me
     };
 
     template <class T1, class T2>
-    bool operator==(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    bool operator==(const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs)
     {
         return (lhs.first == rhs.first && lhs.second == rhs.second);
     }
 
     template <class T1, class T2>
-    bool operator!=(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    bool operator!=(const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs)
     {
         return !(lhs == rhs);
     }
 
     template <class T1, class T2>
-    bool operator<(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    bool operator<(const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs)
     {
         return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second));
     }
 
     template <class T1, class T2>
-    bool operator<=(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    bool operator<=(const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs)
     {
         return !(rhs < lhs);
     }
 
     template <class T1, class T2>
-    bool operator>(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    bool operator>(const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs)
     {
         return (rhs < lhs);
     }
 
     template <class T1, class T2>
-    bool operator>=(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    bool operator>=(const ft::pair<T1, T2> &lhs, const ft::pair<T1, T2> &rhs)
     {
         return !(lhs < rhs);
     }
 
     template <class T1, class T2>
-    me::pair<T1, T2> make_pair(T1 x, T2 y)
+    ft::pair<T1, T2> make_pair(T1 x, T2 y)
     {
-        return (me::pair<T1, T2>(x, y));
+        return (ft::pair<T1, T2>(x, y));
     }
 
 #pragma endregion pair

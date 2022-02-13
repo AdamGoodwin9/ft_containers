@@ -6,7 +6,7 @@
 	namespace lib = std;
 #else
 	#include "vector.hpp"
-    namespace lib = me;
+    namespace lib = ft;
 #endif
 
 void vectorTest();

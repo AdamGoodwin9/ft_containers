@@ -4,7 +4,7 @@
 #include "iterator.hpp"
 #include <memory>
 
-namespace me
+namespace ft
 {
 
     template <class Key,                                        // map::key_type
@@ -27,13 +27,13 @@ namespace me
         typedef typename allocator_type::pointer pointer;
         typedef typename allocator_type::const_pointer const_pointer;
 
-        typedef me::bidirectional_iterator<value_type> iterator;
-        typedef me::bidirectional_iterator<const value_type> const_iterator;
+        typedef ft::bidirectional_iterator<value_type> iterator;
+        typedef ft::bidirectional_iterator<const value_type> const_iterator;
 
-        typedef me::reverse_iterator<iterator> reverse_iterator;
-        typedef me::reverse_iterator<const_iterator> const_reverse_iterator;
+        typedef ft::reverse_iterator<iterator> reverse_iterator;
+        typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
-        typedef typename me::iterator_traits<iterator>::difference_type difference_type;
+        typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
         
         typedef typename allocator_type::size_type size_type;
 

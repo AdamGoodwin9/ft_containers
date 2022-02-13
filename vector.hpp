@@ -8,7 +8,7 @@
 #define THROW_OUT_OF_RANGE std::__throw_out_of_range("argument out of range");
 
 
-namespace me
+namespace ft
 {
     template < class T, class Alloc = std::allocator<T> >
     class vector
@@ -24,13 +24,13 @@ namespace me
         typedef typename allocator_type::pointer pointer;
         typedef typename allocator_type::const_pointer const_pointer;
 
-        typedef me::random_access_iterator<value_type> iterator;
-        typedef me::random_access_iterator<const value_type> const_iterator;
+        typedef ft::random_access_iterator<value_type> iterator;
+        typedef ft::random_access_iterator<const value_type> const_iterator;
 
-        typedef me::reverse_iterator<iterator> reverse_iterator;
-        typedef me::reverse_iterator<const_iterator> const_reverse_iterator;
+        typedef ft::reverse_iterator<iterator> reverse_iterator;
+        typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
-        typedef typename me::iterator_traits<iterator>::difference_type difference_type;
+        typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
         
         typedef typename allocator_type::size_type size_type;
 
@@ -56,7 +56,7 @@ namespace me
 
         template <class InputIterator>
         vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-				typename me::enable_if<!me::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
             : _allocator(alloc), _size(0), _capacity(0), _array(u_nullptr)
         {
             assign(first, last);
@@ -234,7 +234,7 @@ namespace me
 #pragma region Modifiers
         template <class InputIterator>
         void assign (InputIterator first, InputIterator last,
-			        typename me::enable_if<!me::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
+			        typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
         {
             clear();
             insert(begin(), first, last);
@@ -289,10 +289,10 @@ namespace me
 
         template <class InputIterator>
         void insert (iterator position, InputIterator first, InputIterator last,
-			        typename me::enable_if<!me::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
+			        typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
         {
-            if (!(me::is_iterator_tagged<typename me::iterator_traits<InputIterator>::iterator_category >::value))
-                throw std::exception("Invalid iterator type");
+            if (!(ft::is_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category >::value))
+                throw std::invalid_argument("Invalid iterator type");
                 
             //get count of total elements to insert
             size_type n = 0;
@@ -390,8 +390,8 @@ namespace me
     {
         if (lhs.size() != rhs.size())
             return (false);
-        typename me::vector<T>::const_iterator first1 = lhs.begin();
-        typename me::vector<T>::const_iterator first2 = rhs.begin();
+        typename ft::vector<T>::const_iterator first1 = lhs.begin();
+        typename ft::vector<T>::const_iterator first2 = rhs.begin();
         while (first1 != lhs.end())
         {
             if (first2 == rhs.end() || *first1 != *first2)

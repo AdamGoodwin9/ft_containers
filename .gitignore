@@ -4,3 +4,6 @@ containers
 
 obj_std
 std
+*.o
+*.out
+
