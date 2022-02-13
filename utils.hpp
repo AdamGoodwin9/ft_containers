@@ -87,6 +87,8 @@ namespace me
 
 #pragma endregion is_integral
 
+#pragma region nullPointer
+
     static class nullptr_t
     {
     public:
@@ -100,6 +102,83 @@ namespace me
         void operator&() const;
 
     } u_nullptr = {};
+
+#pragma endregion nullPointer
+
+#pragma region pair
+
+    template <class T1, class T2>
+    struct pair
+    {
+    public:
+        T1 first;
+        T2 second;
+
+        pair(): first(), second()
+        {
+        }
+
+        template <class U, class V>
+        pair(const pair<U, V> &p) : first(p.first), second(p.second)
+        {
+        }
+
+        pair(const T1 &a, const T2 &b) : first(a), second(b)
+        {
+        }
+
+        pair &operator=(const pair &p)
+        {
+            this->first = p.first;
+            this->second = p.second;
+            return (*this);
+        }
+    };
+
+    template <class T1, class T2>
+    bool operator==(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    {
+        return (lhs.first == rhs.first && lhs.second == rhs.second);
+    }
+
+    template <class T1, class T2>
+    bool operator!=(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    template <class T1, class T2>
+    bool operator<(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    {
+        return (lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second));
+    }
+
+    template <class T1, class T2>
+    bool operator<=(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    {
+        return !(rhs < lhs);
+    }
+
+    template <class T1, class T2>
+    bool operator>(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    {
+        return (rhs < lhs);
+    }
+
+    template <class T1, class T2>
+    bool operator>=(const me::pair<T1, T2> &lhs, const me::pair<T1, T2> &rhs)
+    {
+        return !(lhs < rhs);
+    }
+
+    template <class T1, class T2>
+    me::pair<T1, T2> make_pair(T1 x, T2 y)
+    {
+        return (me::pair<T1, T2>(x, y));
+    }
+
+#pragma endregion pair
+
 }
 
 #endif
