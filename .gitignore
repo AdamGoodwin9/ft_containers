@@ -1,9 +1,14 @@
 .vscode
+
 obj
 containers
 
 obj_std
 std
+
 *.o
 *.out
+*.txt
+*.swp
 
+containers_test

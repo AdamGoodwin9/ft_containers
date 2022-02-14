@@ -2,6 +2,7 @@
 #define ITERATOR_HPP
 
 #include <cstddef>
+#include <typeinfo>
 #include "utils.hpp"
 
 namespace ft
