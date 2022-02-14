@@ -1,10 +1,11 @@
 #include <iostream>
 #include "Tests.hpp"
+#include "stack.hpp"
 
 void vectorPrint(lib::vector<int> v)
 {
     std::cout << "Vector contains:";
-    for (lib::vector<int>::iterator it=v.begin(); it < v.end(); it++)
+    for (lib::vector<int>::iterator it = v.begin(); it < v.end(); it++)
     {
         std::cout << " " << *it;
     }
@@ -49,32 +50,32 @@ void vectorCapacity()
 
 void vectorModifiers()
 {
-    lib::vector<int> myvector (3, 100);
+    lib::vector<int> myvector(3, 100);
     // 100 100 100
     lib::vector<int>::iterator it;
 
     vectorPrint(myvector);
 
     it = myvector.begin();
-    it = myvector.insert (it, 200);
+    it = myvector.insert(it, 200);
     // 200 100 100 100
     vectorPrint(myvector);
 
-    myvector.insert (it, 2, 300);
+    myvector.insert(it, 2, 300);
     // 300 300 200 100 100
     vectorPrint(myvector);
 
     // "it" no longer valid, get a new one:
     it = myvector.begin();
 
-    lib::vector<int> anothervector (2, 400);
-    myvector.insert (it + 2, anothervector.begin(), anothervector.end());
-    //300 300 400 400 200 100 100 100
+    lib::vector<int> anothervector(2, 400);
+    myvector.insert(it + 2, anothervector.begin(), anothervector.end());
+    // 300 300 400 400 200 100 100 100
     vectorPrint(myvector);
 
-    int myarray [] = { 501,502,503 };
-    myvector.insert (myvector.begin(), myarray, myarray + 3);
-    //501 502 503 300 300 400 400 200 100 100 100
+    int myarray[] = {501, 502, 503};
+    myvector.insert(myvector.begin(), myarray, myarray + 3);
+    // 501 502 503 300 300 400 400 200 100 100 100
     vectorPrint(myvector);
 }
 
@@ -83,4 +84,32 @@ void vectorTest()
     vectorModifiers();
     // vectorIterators();
     // vectorCapacity();
+}
+
+template <typename T>
+void stackPrint(ft::stack<T> &a)
+{
+    ft::stack<T> s(a);
+
+    std::cout << "top-> ";
+    while (!s.empty())
+    {
+        std::cout << s.top() << " - ";
+        s.pop();
+    }
+    std::cout << std::endl;
+}
+
+void stackTest()
+{
+    ft::stack<int> a;
+
+    a.push(2);
+    a.push(3);
+    a.push(4);
+    stackPrint(a);
+    std::cout << "size" << a.size() << ";\nhey " << a.top() << "\n";
+    a.pop();
+    std::cout << "size" << a.size() << ";\nhey " << a.top() << "\n";
+    stackPrint(a);
 }

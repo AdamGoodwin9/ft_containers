@@ -7,6 +7,6 @@
 int main()
 {
     vectorTest();
-
+    stackTest();
     return 0;
 }

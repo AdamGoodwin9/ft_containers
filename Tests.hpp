@@ -10,5 +10,6 @@
 #endif
 
 void vectorTest();
+void stackTest();
 
 #endif

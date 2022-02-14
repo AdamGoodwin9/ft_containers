@@ -37,12 +37,12 @@ namespace ft
 
         value_type &top()
         {
-            return *(_underCont.end() - 1)
+            return *(_underCont.end() - 1);
         }
         
         const value_type &top() const
         {
-            return *(_underCont.end() - 1)
+            return *(_underCont.end() - 1);
         }
 
         void push (const value_type& val)
