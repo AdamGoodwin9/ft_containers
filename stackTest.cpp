@@ -141,7 +141,6 @@ void stackTest()
     ft::stack<foo<int> > a;
     ft::vector<foo<int> > vect(3, 100);
 
-
     ft::stack<foo<int> > b(vect);
 
     printSize(b);

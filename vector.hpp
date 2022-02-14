@@ -57,7 +57,7 @@ namespace ft
         template <class InputIterator>
         vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
-            : _allocator(alloc), _size(0), _capacity(0), _array(u_nullptr)
+            :  _array(u_nullptr), _size(0), _capacity(0), _allocator(alloc)
         {
             assign(first, last);
         }
@@ -70,7 +70,7 @@ namespace ft
 
         ~vector()
         {
-            for (size_type i = 0; i < _capacity; i++)
+            for (size_type i = 0; i < _size; i++)
             {
 				_allocator.destroy(_array + i);
             }
@@ -293,9 +293,7 @@ namespace ft
         void insert (iterator position, InputIterator first, InputIterator last,
 			        typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = u_nullptr)
         {
-            if (!(ft::is_iterator_tagged<typename ft::iterator_traits<InputIterator>::iterator_category >::value))
-                throw std::invalid_argument("Invalid iterator type");
-                
+       
             //get count of total elements to insert
             size_type n = 0;
 			for (InputIterator ii = first; ii != last; ii++)
@@ -333,7 +331,7 @@ namespace ft
 
             while (first != last)
             {
-                _allocator.destroy(first);
+                _allocator.destroy(&(*first));
                 first++;
                 count++;
             }

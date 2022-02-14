@@ -2,10 +2,11 @@
 #include "Tests.hpp"
 #include "stack.hpp"
 
-void vectorPrint(lib::vector<int> v)
+template <typename T>
+void vectorPrint(lib::vector<T> v)
 {
     std::cout << "Vector contains:";
-    for (lib::vector<int>::iterator it = v.begin(); it < v.end(); it++)
+    for (typename lib::vector<T>::iterator it = v.begin(); it < v.end(); it++)
     {
         std::cout << " " << *it;
     }
@@ -298,16 +299,34 @@ void vectorModifiers()
     std::cout << "bar contains:";
     for (unsigned i=0; i<bar.size(); i++)
         std::cout << ' ' << bar[i];
-    std::cout << '\n';
+    std::cout << "\n\n";
 
 
     std::cout << "CLEAR TEST\n";
+    lib::vector<int> clearer;
+    clearer.push_back (100);
+    clearer.push_back (200);
+    clearer.push_back (300);
+
+    std::cout << "myvector contains:";
+    for (unsigned i=0; i<clearer.size(); i++)
+        std::cout << ' ' << clearer[i];
+    std::cout << '\n';
+
+    clearer.clear();
+    clearer.push_back (1101);
+    clearer.push_back (2202);
+
+    std::cout << "myvector contains:";
+    for (unsigned i=0; i<clearer.size(); i++)
+        std::cout << ' ' << clearer[i];
+    std::cout << "\n\n";
 }
 
 void vectorTest()
 {
-    // vectorIterators();
-    // vectorCapacity();
-    // vectorElementAccess();
+    vectorIterators();
+    vectorCapacity();
+    vectorElementAccess();
     vectorModifiers();
 }
