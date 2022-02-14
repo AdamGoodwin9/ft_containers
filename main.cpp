@@ -6,13 +6,13 @@
 
 int main()
 {
-    std::cout << "Running using namespace: \n";
+    std::cout << "Running using namespace: ";
 #ifdef USE_STD
     std::cout << "std";
 #else
     std::cout << "ft";
 #endif
-    std::cout << std::endl;
+    std::cout << std::endl << std::endl;
     
     std::cout << "==========================TESTING VECTOR====================================\n\n";
     vectorTest();
