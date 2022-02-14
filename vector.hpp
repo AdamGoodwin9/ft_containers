@@ -63,7 +63,7 @@ namespace ft
         }
 
         vector(const vector& x)
-            : _allocator(x._allocator), _size(0), _capacity(0), _array(u_nullptr)
+            : _array(u_nullptr), _size(0), _capacity(0), _allocator(x._allocator)
         {
             *this = x;
         }

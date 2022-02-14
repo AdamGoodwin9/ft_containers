@@ -1,9 +1,9 @@
 make re
 
-./std >> std.txt
 ./containers >> containers.txt
+./std >> std.txt
 
-diff std.txt containers.txt
+diff containers.txt std.txt
 
-rm std.txt
 rm containers.txt
+rm std.txt
