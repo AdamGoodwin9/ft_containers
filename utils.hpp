@@ -179,6 +179,26 @@ namespace ft
 
 #pragma endregion pair
 
+#pragma region lexicographicalCompare
+
+    template <class InputIterator1, class InputIterator2>
+    bool lexicographical_compare(InputIterator1 start1, InputIterator1 end1,
+                                 InputIterator2 start2, InputIterator2 end2)
+    {
+        while (start1 != end1)
+        {
+            if (start2 == end2 || *start2 < *start1)
+                return false;
+            else if (*start1 < *start2)
+                return true;
+            ++start1;
+            ++start2;
+        }
+        return (start2 != end2);
+    }
+
+#pragma endregion lexicographicalCompare
+
 }
 
 #endif

@@ -3,9 +3,10 @@ NAME_STD = std
 
 SRCS_DIR = ./
 SRCS =	main.cpp \
-		vectorTest.cpp
+		vectorTest.cpp\
+		stackTest.cpp
 
-FLAGS = -std=c++98# -Wall -Wextra -Werror
+FLAGS = -std=c++98 -Wall -Wextra -Werror
 
 OBJS_DIR 	= 	obj/
 OBJ 		= 	$(SRCS:.cpp=.o)

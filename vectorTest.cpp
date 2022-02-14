@@ -51,6 +51,7 @@ void vectorCapacity()
 void vectorModifiers()
 {
     lib::vector<int> myvector(3, 100);
+    lib::vector<int> myvector2(3, 100);
     // 100 100 100
     lib::vector<int>::iterator it;
 
@@ -77,6 +78,11 @@ void vectorModifiers()
     myvector.insert(myvector.begin(), myarray, myarray + 3);
     // 501 502 503 300 300 400 400 200 100 100 100
     vectorPrint(myvector);
+    std::cout << (myvector2 > myvector) << "\n";
+    std::cout << (myvector2 >= myvector) << "\n";
+    std::cout << (myvector2 < myvector) << "\n";
+    std::cout << (myvector2 <= myvector) << "\n";
+    std::cout << (myvector2 == myvector) << "\n";
 }
 
 void vectorTest()
@@ -86,30 +92,3 @@ void vectorTest()
     // vectorCapacity();
 }
 
-template <typename T>
-void stackPrint(ft::stack<T> &a)
-{
-    ft::stack<T> s(a);
-
-    std::cout << "top-> ";
-    while (!s.empty())
-    {
-        std::cout << s.top() << " - ";
-        s.pop();
-    }
-    std::cout << std::endl;
-}
-
-void stackTest()
-{
-    ft::stack<int> a;
-
-    a.push(2);
-    a.push(3);
-    a.push(4);
-    stackPrint(a);
-    std::cout << "size" << a.size() << ";\nhey " << a.top() << "\n";
-    a.pop();
-    std::cout << "size" << a.size() << ";\nhey " << a.top() << "\n";
-    stackPrint(a);
-}

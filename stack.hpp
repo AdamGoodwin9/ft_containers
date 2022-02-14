@@ -1,7 +1,6 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 
-#include "iterator.hpp"
 #include "vector.hpp"
 
 namespace ft
@@ -55,6 +54,18 @@ namespace ft
             _underCont.pop_back();
         }
 
+    template <class Tp, class ContainerP>
+        friend bool operator==(const stack<Tp, ContainerP> &lhs, const stack<Tp, ContainerP> &rhs);
+    template <class Tp, class ContainerP>
+        friend bool operator!=(const stack<Tp, ContainerP> &lhs, const stack<Tp, ContainerP> &rhs);
+    template <class Tp, class ContainerP>
+        friend bool operator<(const stack<Tp, ContainerP> &lhs, const stack<Tp, ContainerP> &rhs);
+    template <class Tp, class ContainerP>
+        friend bool operator<=(const stack<Tp, ContainerP> &lhs, const stack<Tp, ContainerP> &rhs);
+    template <class Tp, class ContainerP>
+        friend bool operator>(const stack<Tp, ContainerP> &lhs, const stack<Tp, ContainerP> &rhs);
+    template <class Tp, class ContainerP>
+        friend bool operator>=(const stack<Tp, ContainerP> &lhs, const stack<Tp, ContainerP> &rhs);
     };
 
     template <class T, class Container>

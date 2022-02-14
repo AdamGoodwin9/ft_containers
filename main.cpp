@@ -6,7 +6,9 @@
 
 int main()
 {
+    std::cout << "==========================TESTING VECTOR====================================\n\n";
     vectorTest();
+    std::cout << "\n\n==========================TESTING STACK====================================\n\n";
     stackTest();
     return 0;
 }
