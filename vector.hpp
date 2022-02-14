@@ -364,7 +364,7 @@ namespace ft
             x._allocator = this->_allocator;
             
             this->_array = tmpArray;
-            this->_size = tmpCapacity;
+            this->_size = tmpSize;
             this->_capacity = tmpCapacity;
             this->_allocator = tmpAllocator;
         }

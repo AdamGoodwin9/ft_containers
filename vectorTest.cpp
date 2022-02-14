@@ -210,14 +210,12 @@ void vectorModifiers()
 
     std::cout << "PUSH_BACK TEST\n";
     lib::vector<int> push_backer;
-    int myint;
 
-    std::cout << "Please enter some integers (enter 0 to end):\n";
-
-    do {
-        std::cin >> myint;
-        push_backer.push_back (myint);
-    } while (myint);
+    for (int i = 1; i <= 5; i++)
+    {
+        push_backer.push_back (i * 7);
+    }
+    vectorPrint(push_backer);
     std::cout << "myvector stores " << int(push_backer.size()) << " numbers.\n\n";
 
 
@@ -238,41 +236,69 @@ void vectorModifiers()
 
 
     std::cout << "INSERT TEST\n";
-    lib::vector<int> myvector (3, 100);
+    lib::vector<int> inserter (3, 100);
     // 100 100 100
     lib::vector<int>::iterator insertit;
 
-    vectorPrint(myvector);
+    vectorPrint(inserter);
 
-    insertit = myvector.begin();
-    insertit = myvector.insert (insertit, 200);
+    insertit = inserter.begin();
+    insertit = inserter.insert (insertit, 200);
     // 200 100 100 100
-    vectorPrint(myvector);
+    vectorPrint(inserter);
 
-    myvector.insert (insertit, 2, 300);
+    inserter.insert (insertit, 2, 300);
     // 300 300 200 100 100
-    vectorPrint(myvector);
+    vectorPrint(inserter);
 
     // "it" no longer valid, get a new one:
-    insertit = myvector.begin();
+    insertit = inserter.begin();
 
     lib::vector<int> anothervector (2, 400);
-    myvector.insert (insertit + 2, anothervector.begin(), anothervector.end());
+    inserter.insert (insertit + 2, anothervector.begin(), anothervector.end());
     //300 300 400 400 200 100 100 100
-    vectorPrint(myvector);
+    vectorPrint(inserter);
 
     int myarray[] = {501, 502, 503};
-    myvector.insert(myvector.begin(), myarray, myarray + 3);
+    inserter.insert(inserter.begin(), myarray, myarray + 3);
     // 501 502 503 300 300 400 400 200 100 100 100
-    vectorPrint(myvector);
+    vectorPrint(inserter);
     std::cout << "\n";
 
-    std::cout << "ERASE TEST\n";
 
+    std::cout << "ERASE TEST\n";
+    lib::vector<int> eraser;
+
+    // set some values (from 1 to 10)
+    for (int i=1; i<=10; i++) eraser.push_back(i);
+
+    // erase the 6th element
+    eraser.erase (eraser.begin()+5);
+
+    // erase the first 3 elements:
+    eraser.erase (eraser.begin(),eraser.begin()+3);
+
+    std::cout << "myvector contains:";
+    for (unsigned i=0; i<eraser.size(); ++i)
+        std::cout << ' ' << eraser[i];
+    std::cout << "\n\n";
 
 
     std::cout << "SWAP TEST\n";
+    lib::vector<int> foo (3,100);   // three ints with a value of 100
+    lib::vector<int> bar (5,200);   // five ints with a value of 200
 
+    foo.swap(bar);
+
+    std::cout << "foo contains:";
+    for (unsigned i=0; i<foo.size(); i++)
+        std::cout << ' ' << foo[i];
+    std::cout << '\n';
+
+    std::cout << "bar contains:";
+    for (unsigned i=0; i<bar.size(); i++)
+        std::cout << ' ' << bar[i];
+    std::cout << '\n';
 
 
     std::cout << "CLEAR TEST\n";
