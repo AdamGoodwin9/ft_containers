@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <typeinfo>
+#include <string>
 #include "utils.hpp"
 
 namespace ft

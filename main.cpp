@@ -14,9 +14,9 @@ int main()
 #endif
     std::cout << std::endl << std::endl;
     
-    std::cout << "==========================TESTING VECTOR====================================\n\n";
-    vectorTest();
-    std::cout << "==========================TESTING STACK=====================================\n\n";
-    stackTest();
+    // vectorTest();
+    // stackTest();
+    mapTest();
+
     return 0;
 }

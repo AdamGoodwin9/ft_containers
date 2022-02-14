@@ -3,8 +3,9 @@ NAME_STD = std
 
 SRCS_DIR = ./
 SRCS =	main.cpp \
-		vectorTest.cpp\
-		stackTest.cpp
+		vectorTest.cpp \
+		stackTest.cpp \
+		mapTest.cpp
 
 FLAGS = -std=c++98 -Wall -Wextra -Werror #-pedantic
 

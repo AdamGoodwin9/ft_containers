@@ -1,6 +1,4 @@
-#include <iostream>
 #include "Tests.hpp"
-#include "stack.hpp"
 
 template <typename T>
 void vectorPrint(lib::vector<T> v)
@@ -323,10 +321,32 @@ void vectorModifiers()
     std::cout << "\n\n";
 }
 
+void vectorExtra()
+{
+    std::cout << "SWAP TEST\n";
+    lib::vector<int> foo (3,100);   // three ints with a value of 100
+    lib::vector<int> bar (5,200);   // five ints with a value of 200
+
+    //foo.swap(bar);
+    lib::swap(foo, bar);
+
+    std::cout << "foo contains:";
+    for (lib::vector<int>::iterator it = foo.begin(); it!=foo.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << '\n';
+
+    std::cout << "bar contains:";
+    for (lib::vector<int>::iterator it = bar.begin(); it!=bar.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << '\n';
+}
+
 void vectorTest()
 {
+    std::cout << "==========================TESTING VECTOR====================================\n\n";
     vectorIterators();
     vectorCapacity();
     vectorElementAccess();
     vectorModifiers();
+    vectorExtra();
 }

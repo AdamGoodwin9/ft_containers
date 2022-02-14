@@ -383,8 +383,8 @@ namespace ft
         }
 #pragma endregion Allocator
     };
-    //Non-member functions
 
+    //Non-member functions
     template <class T, class Alloc>
     bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
     {
@@ -432,6 +432,11 @@ namespace ft
         return !(lhs < rhs);
     }
 
+    template <class T, class Alloc>
+    void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+    {
+        x.swap(y);
+    }
 }
 
 #endif
