@@ -71,8 +71,10 @@ namespace ft
         ~vector()
         {
             for (size_type i = 0; i < _capacity; i++)
+            {
 				_allocator.destroy(_array + i);
-			_allocator.deallocate(_array, _capacity);
+            }
+            _allocator.deallocate(_array, _capacity);
         }
 
         vector& operator=(const vector& x)
@@ -199,16 +201,16 @@ namespace ft
 
         reference at (size_type n)
         {
-            if (n < 0 || n >= _size) THROW_OUT_OF_RANGE;
-
-            return *this[n];
+            if (n >= _size) THROW_OUT_OF_RANGE;
+            
+            return (*this)[n];
         }
 
         const_reference at (size_type n) const
         {
-            if (n < 0 || n >= _size) THROW_OUT_OF_RANGE;
+            if (n >= _size) THROW_OUT_OF_RANGE;
 
-            return *this[n];
+            return (*this)[n];
         }
 
         reference front()
