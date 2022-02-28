@@ -2,15 +2,16 @@
 #define MAP_HPP
 
 #include "iterator.hpp"
+#include "bst.hpp"
 #include <memory>
 
 namespace ft
 {
 
-    template <class Key,                                        // map::key_type
-              class T,                                          // map::mapped_type
-              class Compare /*= std::less<Key>*/,               // map::key_compare
-              class Alloc = std::allocator<pair<const Key, T> > // map::allocator_type
+    template <class Key,                                       // map::key_type
+              class T,                                         // map::mapped_type
+              class Compare /*= std::less<Key>*/,              // map::key_compare
+              class Alloc = std::allocator<pair<const Key, T>> // map::allocator_type
               >
     class map
     {
@@ -34,15 +35,18 @@ namespace ft
         typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
         typedef typename ft::iterator_traits<iterator>::difference_type difference_type;
-        
+
         typedef typename allocator_type::size_type size_type;
 
     private:
         allocator_type _allocator;
+        bst<pair<Key, T>, Alloc, Compare> _bst;
+
     public:
         // Member functions
 
         explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
+            : bst()
         {
         }
 
@@ -112,10 +116,12 @@ namespace ft
 
         bool empty() const
         {
+            return _bst.size() == 0;
         }
 
         size_type size() const
         {
+            return _bst.size();
         }
 
         size_type max_size() const
