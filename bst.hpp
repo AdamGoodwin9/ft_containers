@@ -5,21 +5,22 @@
 
 namespace ft
 {
+    template<typename T>
+    struct bst_node
+    {
+        T val;
+        bst_node* parent; //doesn't work at all
+        bst_node* left;
+        bst_node* right;
+    };
+    
     template <class T, class Alloc = std::allocator<T>, class Compare = std::less<T> >
     class bst
     {
     public:
         typedef Alloc allocator_type;
         typedef typename allocator_type::size_type size_type;
-
-        struct node
-        {
-            T val;
-            node* left;
-            node* right;
-        };
-
-        typedef node *tree;
+        typedef bst_node<T> node;
 
     private:
         size_type size;
@@ -36,10 +37,11 @@ namespace ft
 
         node* create(T val)
         {
-            node n = { val, NULL, NULL };
+            node n = { val, NULL, NULL, NULL };
 
             node *ret = nodeAllocator.allocate(1);
             nodeAllocator.construct(ret, n);
+            // node->parent = parent;
 
             size++;
             return ret;
@@ -47,7 +49,7 @@ namespace ft
 
         node* search(T val) { return search(val, root); }
 
-        void insert(T val) { insert(root, val); }
+        node* insert(T val) { return insert(root, val); }
 
         node* erase(T val) { return erase(root, val); }
 
@@ -76,12 +78,12 @@ namespace ft
         {
             if (!n) return u_nullptr;
 
-            if (val == n->val)
+            if (val.first == n->val.first)
             {
                 return n;
             }
 
-            if (compare(val, n->val))
+            if (compare(val.first, n->val.first))
             {
                 return search(val, n->left);
             }
@@ -99,12 +101,12 @@ namespace ft
                 return n;
             }
 
-            if (n->val == val)
+            if (n->val.first == val.first)
             {
                 return n;
             }
 
-            if (compare(val, n->val))
+            if (compare(val.first, n->val.first))
             {
                 if (!n->left)
                 {
@@ -134,7 +136,7 @@ namespace ft
         {
             if (!n) return NULL;
 
-            if (n->val == val)
+            if (n->val.first == val.first)
             {
                 if (n->left == NULL)
                 {
@@ -157,7 +159,7 @@ namespace ft
                 n->val = temp->val;
                 n->right = erase(n->right, temp->val);
             }
-            else if (compare(val, n->val))
+            else if (compare(val.first, n->val.first))
             {
                 n->left = erase(n->left, val);
             }

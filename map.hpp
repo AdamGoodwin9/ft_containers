@@ -10,7 +10,7 @@ namespace ft
 
     template <class Key,                                       // map::key_type
               class T,                                         // map::mapped_type
-              class Compare /*= std::less<Key>*/,              // map::key_compare
+              class Compare = std::less<Key>,              // map::key_compare
               class Alloc = std::allocator<pair<const Key, T>> // map::allocator_type
               >
     class map
@@ -18,7 +18,7 @@ namespace ft
     public:
         typedef Key key_type;
         typedef T mapped_type;
-        typedef value_type pair<const key_type, mapped_type>;
+        typedef typename pair<const key_type, mapped_type> value_type;
         typedef Compare key_compare;
         typedef Alloc allocator_type;
 
@@ -40,7 +40,7 @@ namespace ft
 
     private:
         allocator_type _allocator;
-        bst<pair<Key, T>, Alloc, Compare> _bst;
+        bst<value_type, Alloc, Compare> _tree;
 
     public:
         // Member functions
@@ -112,7 +112,7 @@ namespace ft
 
 #pragma endregion Iterators
 
-#pragma region Capacity
+#pragma region Capacity //done
 
         bool empty() const
         {
@@ -126,6 +126,7 @@ namespace ft
 
         size_type max_size() const
         {
+            return _allocator.max_size();
         }
 
 #pragma endregion Capacity
@@ -134,6 +135,8 @@ namespace ft
 
         mapped_type &operator[](const key_type &k)
         {
+            value_type ret = _tree.search(make_pair<key_type, mapped_type>(k, NULL));
+            return ret.second;
         }
 
 #pragma endregion ElementAccess
@@ -142,6 +145,8 @@ namespace ft
 
         pair<iterator, bool> insert(const value_type &val)
         {
+            pair<iterator, bool> ret;
+            ret.first = _tree.insert(val);
         }
 
         iterator insert(iterator position, const value_type &val)

@@ -2,6 +2,7 @@
 #define BST_ITERATOR_HPP
 
 #include "iterator.hpp"
+#include "bst.hpp"
 
 namespace ft
 {
@@ -14,6 +15,7 @@ namespace ft
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::difference_type difference_type;
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer pointer;
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference reference;
+
 
     private:
         T *node;
