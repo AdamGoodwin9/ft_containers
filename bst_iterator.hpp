@@ -18,10 +18,21 @@ namespace ft
 
 
     private:
-        T *node;
+        bst_node<T> *node;
         Compare compare;
 
     public:
+
+        bst_iterator()
+        {
+
+        }
+
+        bst_iterator()
+        {
+
+        }
+
         bst_iterator &operator=(const bst_iterator &that)
         {
             if (*this == that)
@@ -50,6 +61,33 @@ namespace ft
         pointer operator->() const
         {
             return (&this->_node->value);
+        }
+
+        bst_iterator& operator++()
+        {
+            if (_node->right != NULL)
+            {
+                _node = _node->right;
+                while(_node->left)
+                {
+                    _node = _node->left;
+                }
+                return (*this);
+            }
+            while (_node->parent != NULL)
+            {
+                if (_node->parent == NULL)
+                {
+                    _node = NULL;
+                    return (*this);
+                }
+                if (_node->parent->left == _node)
+                {
+                    _node = _node->parent;    
+                    return (*this);              
+                }
+                _node = _node->parent;
+            }
         }
     };
 }
