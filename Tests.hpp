@@ -4,10 +4,12 @@
 #ifdef USE_STD
 	#include <vector>
 	#include <stack>
+	#include <map>
 	namespace lib = std;
 #else
 	#include "vector.hpp"
 	#include "stack.hpp"
+	#include "map.hpp"
     namespace lib = ft;
 #endif
 

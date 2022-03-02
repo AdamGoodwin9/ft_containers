@@ -2,6 +2,7 @@
 #define BST_HPP
 
 #include <functional>
+#include <iostream>
 
 namespace ft
 {
@@ -9,12 +10,12 @@ namespace ft
     struct bst_node
     {
         T val;
-        bst_node* parent; //doesn't work at all
+        bst_node* parent;
         bst_node* left;
         bst_node* right;
     };
     
-    template <class T, class Alloc = std::allocator<T>, class Compare = std::less<T> >
+    template <class T, class Compare, class Alloc = std::allocator<T> >
     class bst
     {
     public:
@@ -31,27 +32,27 @@ namespace ft
 
     public:
 
-        bst() : size(0), root(NULL), compare(), allocator()
-        {
-        }
+        bst() : size(0), root(NULL), compare(), allocator() { }
 
-        node* create(T val)
+        node* create(T val, node *parent)
         {
             node n = { val, NULL, NULL, NULL };
 
             node *ret = nodeAllocator.allocate(1);
             nodeAllocator.construct(ret, n);
-            // node->parent = parent;
+            n.parent = parent;
 
             size++;
             return ret;
         }
 
-        node* search(T val) { return search(val, root); }
+        node* search(T val) { return search(root, val); }
 
         node* insert(T val) { return insert(root, val); }
 
         node* erase(T val) { return erase(root, val); }
+
+        void clear() { clear(root); }
 
         node* min(node* n)
         {
@@ -74,7 +75,7 @@ namespace ft
         }
 
     private:
-        node* search(T val, node *n)
+        node* search(node *n, T val)
         {
             if (!n) return u_nullptr;
 
@@ -85,11 +86,11 @@ namespace ft
 
             if (compare(val.first, n->val.first))
             {
-                return search(val, n->left);
+                return search(n->left, val);
             }
             else
             {
-                return search(val, n->right);
+                return search(n->right, val);
             }
         }
 
@@ -97,7 +98,7 @@ namespace ft
         {
             if (!n)
             {
-                n = create(val);
+                n = create(val, NULL);
                 return n;
             }
 
@@ -110,7 +111,7 @@ namespace ft
             {
                 if (!n->left)
                 {
-                    n->left = create(val);
+                    n->left = create(val, n);
                     return n->left;
                 }
                 else
@@ -122,7 +123,7 @@ namespace ft
             {
                 if (!n->right)
                 {
-                    n->right = create(val);
+                    n->right = create(val, n);
                     return n->right;
                 }
                 else
@@ -171,6 +172,17 @@ namespace ft
             return n;
         }
 
+        void clear(node* n)
+        {
+            if (!n) return;
+
+            clear(n->left);
+            clear(n->right);
+
+            nodeAllocator.destroy(n);
+            nodeAllocator.deallocate(n, 1);
+        }
+
         void printHelper(node *n, std::string indent, bool last)
         {
             if (n)
@@ -187,7 +199,7 @@ namespace ft
                     indent += "|  ";
                 }
 
-                std::cout << n->val << std::endl;
+                std::cout << n->val.first << std::endl;
                 printHelper(n->left, indent, false);
                 printHelper(n->right, indent, true);
             }

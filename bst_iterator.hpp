@@ -15,22 +15,23 @@ namespace ft
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::difference_type difference_type;
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer pointer;
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference reference;
-
+        typedef typename bst_node<T> node;
 
     private:
-        bst_node<T> *node;
-        Compare compare;
+        node *_node;
+        
+        bst_iterator() : _node(NULL);
+        {
+        }
 
     public:
 
-        bst_iterator()
+        bst_iterator(node *start) : _node(start)
         {
-
         }
 
-        bst_iterator()
+        bst_iterator(bst_iterator that) : _node(that._node)
         {
-
         }
 
         bst_iterator &operator=(const bst_iterator &that)
@@ -38,8 +39,6 @@ namespace ft
             if (*this == that)
                 return (*this);
             this->_node = that._node;
-            // this->_last_node = that._last_node;
-            this->_comp = that._comp;
             return (*this);
         }
 
@@ -76,11 +75,6 @@ namespace ft
             }
             while (_node->parent != NULL)
             {
-                if (_node->parent == NULL)
-                {
-                    _node = NULL;
-                    return (*this);
-                }
                 if (_node->parent->left == _node)
                 {
                     _node = _node->parent;    
@@ -88,6 +82,46 @@ namespace ft
                 }
                 _node = _node->parent;
             }
+            _node = NULL;
+            return (*this);
+        }
+
+        bst_iterator operator++(int)
+        {
+            bst_iterator tmp(*this);
+            operator++();
+            return tmp;
+        }
+
+        bst_iterator& operator--()
+        {
+            if (_node->left != NULL)
+            {
+                _node = _node->left;
+                while(_node->right)
+                {
+                    _node = _node->right;
+                }
+                return (*this);
+            }
+            while (_node->parent != NULL)
+            {
+                if (_node->parent->right == _node)
+                {
+                    _node = _node->parent;    
+                    return (*this);              
+                }
+                _node = _node->parent;
+            }
+            _node = NULL;
+            return (*this);
+        }
+
+        bst_iterator operator--(int)
+        {
+            bst_iterator tmp(*this);
+            operator--();
+            return tmp;
         }
     };
 }

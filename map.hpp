@@ -11,14 +11,14 @@ namespace ft
     template <class Key,                                       // map::key_type
               class T,                                         // map::mapped_type
               class Compare = std::less<Key>,              // map::key_compare
-              class Alloc = std::allocator<pair<const Key, T>> // map::allocator_type
+              class Alloc = std::allocator<pair<const Key, T> > // map::allocator_type
               >
     class map
     {
     public:
         typedef Key key_type;
         typedef T mapped_type;
-        typedef typename pair<const key_type, mapped_type> value_type;
+        typedef pair<const key_type, mapped_type> value_type;
         typedef Compare key_compare;
         typedef Alloc allocator_type;
 
@@ -40,13 +40,13 @@ namespace ft
 
     private:
         allocator_type _allocator;
-        bst<value_type, Alloc, Compare> _tree;
+        bst<value_type, Compare, Alloc> _tree;
 
     public:
         // Member functions
 
         explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
-            : bst()
+            : _tree()
         {
         }
 
@@ -94,14 +94,6 @@ namespace ft
         {
         }
 
-        reverse_iterator rbegin()
-        {
-        }
-
-        const_reverse_iterator rbegin() const
-        {
-        }
-
         reverse_iterator rend()
         {
         }
@@ -116,12 +108,12 @@ namespace ft
 
         bool empty() const
         {
-            return _bst.size() == 0;
+            return _tree.size() == 0;
         }
 
         size_type size() const
         {
-            return _bst.size();
+            return _tree.size();
         }
 
         size_type max_size() const
@@ -186,9 +178,9 @@ namespace ft
         {
         }
 
-        value_compare value_comp() const
-        {
-        }
+        // value_compare value_comp() const
+        // {
+        // }
 
 #pragma endregion Observers
 
@@ -196,14 +188,17 @@ namespace ft
 
         iterator find(const key_type &k)
         {
+            return iterator(_tree.search(make_pair(k, mapped_type())));
         }
 
         const_iterator find(const key_type &k) const
         {
+            return const_iterator(_tree.search(make_pair(k, mapped_type())));
         }
 
         size_type count(const key_type &k) const
         {
+
         }
 
         iterator lower_bound(const key_type &k)

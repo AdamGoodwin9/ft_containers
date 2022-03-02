@@ -197,6 +197,8 @@ template <class InputIterator>
     template <class T>
     class bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
     {
+    public:
+    
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::iterator_category iterator_category;
 
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, T>::value_type value_type;
