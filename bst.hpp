@@ -31,23 +31,16 @@ namespace ft
         Compare compare;
         typename allocator_type::template rebind<node>::other nodeAllocator;
         allocator_type allocator;
+        node *end_node;
 
     public:
 
         bst() : size(0), root(NULL), compare(), allocator()
         {
-        }
+            node end = {T(), NULL, NULL, NULL};
 
-        node* create(T val, node *parent)
-        {
-            node n = { val, NULL, NULL, NULL };
-
-            node *ret = nodeAllocator.allocate(1);
-            nodeAllocator.construct(ret, n);
-            n.parent = parent;
-
-            size++;
-            return ret;
+            end_node = nodeAllocator.allocate(1);
+            nodeAllocator.construct(end_node, end);
         }
 
         node* search(T val) { return search(root, val); }
@@ -78,12 +71,42 @@ namespace ft
             }
         }
 
-        node *root()
+        node *get_root()
         {
             return root; 
         }
 
+        node *get_end_node()
+        {
+            return end_node;
+        }
+
+        void swap(bst& that)
+        {
+            node* n = this->root;
+			this->root = that.root;
+			that.root = n;
+
+            int i = this->size;
+            this->size = that.size;
+            that.size = i;
+        }
+
     private:
+        node* create(T val, node *parent)
+        {
+            node n = { val, NULL, NULL, NULL };
+            n.parent = parent;
+
+            node *ret = nodeAllocator.allocate(1);
+            nodeAllocator.construct(ret, n);
+
+            if (end_node->parent == NULL || compare(end_node->parent->val.first, ret->val.first))
+                end_node->parent = ret;
+            size++;
+            return ret;
+        }
+        
         node* search(node *n, T val)
         {
             if (!n) return NULL;

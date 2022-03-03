@@ -4,6 +4,8 @@
 #include "iterator.hpp"
 #include "bst.hpp"
 
+#define MAP_ITERATOR_OUT_OF_RANGE "Map iterator out of range"
+
 namespace ft
 {
     template <typename T>
@@ -55,16 +57,20 @@ namespace ft
 
         reference operator*() const
         {
-            return (this->_node->value);
+            return (this->_node->val);
         }
 
         pointer operator->() const
         {
-            return (&this->_node->value);
+            std::cout << "hey\n";
+            std::cout << _node->val.first;
+            return (&this->_node->val);
         }
 
         bst_iterator &operator++()
         {
+            if (_node == _end_node)
+                throw std::out_of_range(MAP_ITERATOR_OUT_OF_RANGE);
             if (_node->right != NULL)
             {
                 _node = _node->right;
@@ -83,7 +89,8 @@ namespace ft
                 }
                 _node = _node->parent;
             }
-            _node = NULL;
+            _end_node->parent = _node;
+            _node = _end_node;
             return (*this);
         }
 
@@ -96,6 +103,11 @@ namespace ft
 
         bst_iterator &operator--()
         {
+            if (_end_node == _node)
+            {
+                _node = _end_node->parent;
+                return (*this);
+            }
             if (_node->left != NULL)
             {
                 _node = _node->left;
@@ -114,8 +126,9 @@ namespace ft
                 }
                 _node = _node->parent;
             }
-            _node = NULL;
-            return (*this);
+            throw std::out_of_range(MAP_ITERATOR_OUT_OF_RANGE);
+            // _node = NULL;
+            // return (*this);
         }
 
         bst_iterator operator--(int)

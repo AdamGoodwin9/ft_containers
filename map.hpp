@@ -8,7 +8,6 @@
 
 namespace ft
 {
-
     template <class Key,                                       // map::key_type
               class T,                                         // map::mapped_type
               class Compare = std::less<Key>,                  // map::key_compare
@@ -59,7 +58,6 @@ namespace ft
 
     private:
         allocator_type _allocator;
-        bst_node<value_type> *_end_node;
         bst<value_type, Compare, Alloc> _tree;
         Compare _comp;
 
@@ -69,44 +67,45 @@ namespace ft
         explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
             : _comp(comp), _allocator(alloc), _tree()
         {
-            _end_node->val = NULL;
         }
 
         template <class InputIterator>
-        map(InputIterator first, InputIterator last,
-            const key_compare &comp = key_compare(),
-            const allocator_type &alloc = allocator_type())
+        map(typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
+            const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
         {
+            insert(first, last);
         }
 
-        map(const map &x)
-        {
-        }
+        map(const map &x) : _comp(x._comp), _tree(x._tree) { }
 
-        ~map()
-        {
-        }
+        ~map() { }
 
         map &operator=(const map &x)
         {
+            _comp = x._comp;
+            _tree = x._tree;
+            return *this;
         }
 
 #pragma region Iterators
         iterator begin()
         {
+            return new_iterator(_tree.get_root());
         }
 
         const_iterator begin() const
         {
+            return new_const_iterator(_tree.get_root());
         }
 
         iterator end()
         {
-            return _end_node;
+            return new_iterator(_tree.get_end_node());
         }
 
         const_iterator end() const
         {
+            return new_const_iterator(_tree.get_end_node());
         }
 
         reverse_iterator rbegin()
@@ -146,34 +145,44 @@ namespace ft
 
 #pragma endregion Capacity
 
-#pragma region ElementAccess
+#pragma region ElementAccess //done
 
         mapped_type &operator[](const key_type &k)
         {
-            value_type ret = _tree.search(ft::make_pair<key_type, mapped_type>(k, NULL));
-            return ret.second;
+            return insert(ft::make_pair(k, mapped_type())).first->second;
         }
 
 #pragma endregion ElementAccess
 
-#pragma region Modifiers
+#pragma region Modifiers //done
 
         pair<iterator, bool> insert(const value_type &val)
         {
-            iterator ret1(_tree.insert(val), _end_node);
-            bool ret2 = false;
-            if (ret1 != end())
-                ret2 = true;
-            return ft::make_pair(ret1, ret2);
+            iterator it = find(val.first);
+
+			if (it != end())
+            {
+				return ft::make_pair(it, false);
+            }
+            else
+            {
+                return ft::make_pair(new_iterator(_tree.insert(val)), true);
+            }
         }
 
         iterator insert(iterator position, const value_type &val)
         {
+            (void)position;
+			return insert(val).first;
         }
 
         template <class InputIterator>
         void insert(InputIterator first, InputIterator last)
         {
+            while (first != last)
+            {
+				insert(*first++);
+            }
         }
 
         void erase(iterator position)
@@ -199,6 +208,7 @@ namespace ft
 
         void swap(map &x)
         {
+            _tree.swap(x._tree);
         }
 
         void clear()
@@ -226,12 +236,12 @@ namespace ft
 
         iterator find(const key_type &k)
         {
-            return iterator(_tree.search(ft::make_pair(k, mapped_type())));
+            return new_iterator(_tree.search(ft::make_pair(k, mapped_type())));
         }
 
         const_iterator find(const key_type &k) const
         {
-            return const_iterator(_tree.search(ft::make_pair(k, mapped_type())));
+            return new_const_iterator(_tree.search(ft::make_pair(k, mapped_type())));
         }
 
         size_type count(const key_type &k) const
@@ -306,7 +316,18 @@ namespace ft
             return _allocator;
         }
 
-#pragma endregion Allocator
+#pragma endregion
+
+    private:
+        iterator new_iterator(bst_node<value_type> *node)
+        {
+            return iterator(node, _tree.get_end_node());
+        }
+        const_iterator new_const_iterator(bst_node<value_type> *node)
+        {
+            return const_iterator(node, _tree.get_end_node());
+        }
+
     };
 }
 
