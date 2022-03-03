@@ -7,7 +7,7 @@ SRCS =	main.cpp \
 		stackTest.cpp \
 		mapTest.cpp
 
-FLAGS = -std=c++98 #-Wall -Wextra -Werror #-pedantic
+FLAGS = -std=c++98 -Wall -Wextra -Werror #-pedantic
 
 OBJS_DIR 	= 	obj/
 OBJ 		= 	$(SRCS:.cpp=.o)

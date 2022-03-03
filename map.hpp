@@ -57,9 +57,9 @@ namespace ft
         };
 
     private:
+        Compare _comp;
         allocator_type _allocator;
         bst<value_type, Compare, Alloc> _tree;
-        Compare _comp;
 
     public:
         // Member functions
@@ -71,7 +71,8 @@ namespace ft
 
         template <class InputIterator>
         map(typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
-            const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
+            const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()) 
+            : _comp(comp), _allocator(alloc), _tree()
         {
             insert(first, last);
         }
