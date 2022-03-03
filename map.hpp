@@ -110,18 +110,22 @@ namespace ft
 
         reverse_iterator rbegin()
         {
+            return reverse_iterator(this->end());
         }
 
         const_reverse_iterator rbegin() const
         {
+            return reverse_iterator(this->end());
         }
 
         reverse_iterator rend()
         {
+            return reverse_iterator(this->begin());
         }
 
         const_reverse_iterator rend() const
         {
+            return reverse_iterator(this->begin());
         }
 
 #pragma endregion Iterators
