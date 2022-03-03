@@ -4,6 +4,8 @@
 #include <functional>
 #include <iostream>
 
+#include <typeinfo>
+
 namespace ft
 {
     template<typename T>
@@ -32,7 +34,9 @@ namespace ft
 
     public:
 
-        bst() : size(0), root(NULL), compare(), allocator() { }
+        bst() : size(0), root(NULL), compare(), allocator()
+        {
+        }
 
         node* create(T val, node *parent)
         {
@@ -74,10 +78,15 @@ namespace ft
             }
         }
 
+        node *root()
+        {
+            return root; 
+        }
+
     private:
         node* search(node *n, T val)
         {
-            if (!n) return u_nullptr;
+            if (!n) return NULL;
 
             if (val.first == n->val.first)
             {
@@ -94,7 +103,7 @@ namespace ft
             }
         }
 
-        node* insert(node*& n, T val) //maybe want to return the inserted element. also do not allow duplicates
+        node* insert(node*& n, T val)
         {
             if (!n)
             {
@@ -139,26 +148,39 @@ namespace ft
 
             if (n->val.first == val.first)
             {
-                if (n->left == NULL)
+                if (n->left == NULL && n->right == NULL)
                 {
-                    node* temp = n->right;
                     nodeAllocator.destroy(n);
                     nodeAllocator.deallocate(n, 1);
                     size--;
-                    return temp;
+                    return NULL;
+                }
+                else if (n->left == NULL)
+                {
+                    n->right->parent = n->parent;
+
+                    node* ret = n->right;
+                    nodeAllocator.destroy(n);
+                    nodeAllocator.deallocate(n, 1);
+                    size--;
+                    return ret;
                 }
                 else if (n->right == NULL)
                 {
-                    node* temp = n->left;
+                    n->left->parent = n->parent;
+
+                    node* ret = n->left;
                     nodeAllocator.destroy(n);
                     nodeAllocator.deallocate(n, 1);
                     size--;
-                    return temp;
+                    return ret;
                 }
-
-                node* temp = min(n->right);
-                n->val = temp->val;
-                n->right = erase(n->right, temp->val);
+                else
+                {
+                    T temp = min(n->right)->val;
+                    n->val = temp;
+                    n->right = erase(n->right, temp);
+                }
             }
             else if (compare(val.first, n->val.first))
             {
@@ -199,7 +221,7 @@ namespace ft
                     indent += "|  ";
                 }
 
-                std::cout << n->val.first << std::endl;
+                std::cout << "(" << n->val.first << ", " << n->val.second << ")" << std::endl;
                 printHelper(n->left, indent, false);
                 printHelper(n->right, indent, true);
             }

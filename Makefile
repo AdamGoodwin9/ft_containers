@@ -49,4 +49,4 @@ fclean: clean
 	@echo "Deleting $(NAME_STD)"
 	@rm -f $(NAME_STD)
 
-re: fclean all
+re: fclean containers

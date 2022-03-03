@@ -6,31 +6,32 @@
 
 namespace ft
 {
-    template <typename T, class Compare>
+    template <typename T>
     class bst_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
     {
     public:
-        typedef typename T::value_type value_type;
+        typedef T value_type;
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category iterator_category;
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::difference_type difference_type;
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer pointer;
         typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference reference;
-        typedef typename bst_node<T> node;
+        typedef bst_node<value_type> node;
 
     private:
         node *_node;
-        
-        bst_iterator() : _node(NULL);
-        {
-        }
+        node *_end_node;
 
     public:
 
-        bst_iterator(node *start) : _node(start)
+        bst_iterator() : _node(_end_node)
         {
         }
 
-        bst_iterator(bst_iterator that) : _node(that._node)
+        bst_iterator(node *start, node *end_node) : _node(start), _end_node(end_node)
+        {
+        }
+
+        bst_iterator(bst_iterator const &that) : _node(that._node)
         {
         }
 
@@ -62,12 +63,12 @@ namespace ft
             return (&this->_node->value);
         }
 
-        bst_iterator& operator++()
+        bst_iterator &operator++()
         {
             if (_node->right != NULL)
             {
                 _node = _node->right;
-                while(_node->left)
+                while (_node->left)
                 {
                     _node = _node->left;
                 }
@@ -77,8 +78,8 @@ namespace ft
             {
                 if (_node->parent->left == _node)
                 {
-                    _node = _node->parent;    
-                    return (*this);              
+                    _node = _node->parent;
+                    return (*this);
                 }
                 _node = _node->parent;
             }
@@ -93,12 +94,12 @@ namespace ft
             return tmp;
         }
 
-        bst_iterator& operator--()
+        bst_iterator &operator--()
         {
             if (_node->left != NULL)
             {
                 _node = _node->left;
-                while(_node->right)
+                while (_node->right)
                 {
                     _node = _node->right;
                 }
@@ -108,8 +109,8 @@ namespace ft
             {
                 if (_node->parent->right == _node)
                 {
-                    _node = _node->parent;    
-                    return (*this);              
+                    _node = _node->parent;
+                    return (*this);
                 }
                 _node = _node->parent;
             }
