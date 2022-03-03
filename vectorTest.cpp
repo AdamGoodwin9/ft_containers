@@ -1,4 +1,4 @@
-#include "tests.hpp"
+#include "Tests.hpp"
 
 template <typename T>
 void vectorPrint(lib::vector<T> v)

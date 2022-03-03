@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
-#include "tests.hpp"
+#include "Tests.hpp"
 
 int main()
 {

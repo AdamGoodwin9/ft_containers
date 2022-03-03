@@ -65,6 +65,7 @@ namespace ft
 
         void printTree()
         {
+            std::cout << "printing tree\n\n";
             if (root)
             {
                 printHelper(root, "", true);
@@ -109,7 +110,7 @@ namespace ft
         
         node* search(node *n, T val)
         {
-            if (!n) return NULL;
+            if (!n) return end_node;
 
             if (val.first == n->val.first)
             {

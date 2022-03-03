@@ -62,8 +62,6 @@ namespace ft
 
         pointer operator->() const
         {
-            std::cout << "hey\n";
-            std::cout << _node->val.first;
             return (&this->_node->val);
         }
 

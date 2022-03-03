@@ -1,4 +1,4 @@
-#include "tests.hpp"
+#include "Tests.hpp"
 
 void treeTest()
 {
@@ -29,11 +29,12 @@ void mapExtra()
     map.insert(lib::make_pair(2, "two"));
     map.insert(lib::make_pair(1, "one"));
 
-    lib::bst_iterator<lib::pair<const int, std::string> > it = map.begin();
+    lib::map<int, std::string>::iterator it = map.begin();
+    std::cout << it->second << std::endl;
     
     while (it != map.end())
     {
-    std::cout << "kiki\n";
+        std::cout << "kiki\n";
         std::cout << it->first << std::endl;
         it++;
     }    

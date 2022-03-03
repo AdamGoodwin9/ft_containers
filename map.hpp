@@ -90,12 +90,12 @@ namespace ft
 #pragma region Iterators
         iterator begin()
         {
-            return new_iterator(_tree.get_root());
+            return new_iterator(_tree.min(_tree.get_root()));
         }
 
         const_iterator begin() const
         {
-            return new_const_iterator(_tree.get_root());
+            return new_const_iterator(_tree.min(_tree.get_root()));
         }
 
         iterator end()
