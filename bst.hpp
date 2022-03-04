@@ -43,7 +43,7 @@ namespace ft
             nodeAllocator.construct(end_node, end);
         }
 
-        node* search(T val) { return search(root, val); }
+        node* search(T val) const { return search(root, val); }
 
         node* insert(T val) { return insert(root, val); }
 
@@ -112,7 +112,7 @@ namespace ft
             return ret;
         }
         
-        node* search(node *n, T val)
+        node* search(node *n, T val) const
         {
             if (!n) return end_node;
 
@@ -206,7 +206,14 @@ namespace ft
                 else
                 {
                     T temp = min(n->right)->val;
-                    n->val = temp;
+                    
+                    node* replacement = create(temp, n->parent);
+                    replacement->left = n->left;
+                    replacement->right = n->right;
+                    *n = *replacement; //LEAKY LEAKY BROKEN
+                    
+                    //n->val = make_pair(temp.first, temp.second);
+                    //n->val = temp;
                     n->right = erase(n->right, temp);
                 }
             }
