@@ -151,11 +151,11 @@ void mapModifiers()
 
     std::cout << "foo contains:\n";
     for (lib::map<char, int>::iterator swapit = foo.begin(); swapit != foo.end(); ++swapit)
-        std::cout << it->first << " => " << it->second << '\n';
+        std::cout << swapit->first << " => " << swapit->second << '\n';
 
     std::cout << "bar contains:\n";
     for (lib::map<char, int>::iterator swapit = bar.begin(); swapit != bar.end(); ++swapit)
-        std::cout << it->first << " => " << it->second << '\n';
+        std::cout << swapit->first << " => " << swapit->second << '\n';
 
     std::cout << "\nCLEAR TEST\n";
     lib::map<char, int> clearer;
@@ -190,13 +190,13 @@ void mapObservers()
 
     std::cout << "keycomper contains:\n";
 
-    char highest = keycomper.rbegin()->first; // key value of last element
+    char highestChar = keycomper.rbegin()->first; // key value of last element
 
     lib::map<char, int>::iterator keycompit = keycomper.begin();
     do
     {
         std::cout << keycompit->first << " => " << keycompit->second << '\n';
-    } while (mycomp((*keycompit++).first, highest));
+    } while (mycomp((*keycompit++).first, highestChar));
 
     std::cout << '\n';
 
@@ -209,19 +209,19 @@ void mapObservers()
 
     std::cout << "valuecomper contains:\n";
 
-    lib::pair<char, int> highest = *valuecomper.rbegin(); // last element
+    lib::pair<char, int> highestPair = *valuecomper.rbegin(); // last element
 
     lib::map<char, int>::iterator valuecompit = valuecomper.begin();
     do
     {
         std::cout << valuecompit->first << " => " << valuecompit->second << '\n';
-    } while (valuecomper.value_comp()(*valuecompit++, highest));
+    } while (valuecomper.value_comp()(*valuecompit++, highestPair));
 }
 
 void mapOperations()
 {
     std::cout << "\nFIND TEST\n";
-    lih::map<char, int> finder;
+    lib::map<char, int> finder;
     lib::map<char, int>::iterator findit;
 
     finder['a'] = 50;

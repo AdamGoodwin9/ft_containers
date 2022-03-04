@@ -135,12 +135,12 @@ namespace ft
 
         bool empty() const
         {
-            return _tree.size() == 0;
+            return _tree.getSize() == 0;
         }
 
         size_type size() const
         {
-            return _tree.size();
+            return _tree.getSize();
         }
 
         size_type max_size() const
@@ -197,7 +197,7 @@ namespace ft
 
         size_type erase(const key_type &k)
         {
-            return !(!_tree.erase(ft::make_pair<Key, T>(k, NULL)));
+            return !(!_tree.erase(ft::make_pair<Key, T>(k, mapped_type())));
         }
 
         void erase(iterator first, iterator last)
@@ -251,7 +251,7 @@ namespace ft
 
         size_type count(const key_type &k) const
         {
-            return !(!_tree.search(ft::make_pair<Key, T>(k, NULL)));
+            return !(!_tree.search(ft::make_pair<Key, T>(k, mapped_type())));
         }
 
         iterator lower_bound(const key_type &k)

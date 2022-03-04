@@ -93,6 +93,10 @@ namespace ft
             that.size = i;
         }
 
+        size_type getSize() const
+        {
+            return size;
+        }
     private:
         node* create(T val, node *parent)
         {
