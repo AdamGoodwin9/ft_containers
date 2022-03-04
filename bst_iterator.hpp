@@ -25,7 +25,7 @@ namespace ft
 
     public:
 
-        bst_iterator() : _node(_end_node)
+        bst_iterator() : _node(NULL), _end_node(NULL)
         {
         }
 
@@ -33,7 +33,7 @@ namespace ft
         {
         }
 
-        bst_iterator(bst_iterator const &that) : _node(that._node)
+        bst_iterator(bst_iterator const &that) : _node(that._node), _end_node(that._end_node)
         {
         }
 
@@ -42,6 +42,7 @@ namespace ft
             if (*this == that)
                 return (*this);
             this->_node = that._node;
+            this->_end_node = that._end_node;
             return (*this);
         }
 
