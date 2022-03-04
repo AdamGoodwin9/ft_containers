@@ -125,13 +125,18 @@ void mapModifiers()
     eraser['e'] = 50;
     eraser['f'] = 60;
 
+    eraser.printTree();
     eraseit = eraser.find('b');
     eraser.erase(eraseit); // erasing by iterator
+    eraser.printTree();
+
 
     eraser.erase('c'); // erasing by key
+    eraser.printTree();
 
     eraseit = eraser.find('e');
     eraser.erase(eraseit, eraser.end()); // erasing by range
+    eraser.printTree();
 
     // show content:
     for (eraseit = eraser.begin(); eraseit != eraser.end(); ++eraseit)
@@ -239,6 +244,7 @@ void mapOperations()
     std::cout << "c => " << finder.find('c')->second << '\n';
     std::cout << "d => " << finder.find('d')->second << '\n';
 
+
     std::cout << "\nCOUNT TEST\n";
     lib::map<char, int> counter;
     char c;
@@ -314,15 +320,37 @@ void mapExtra()
     std::cout << it->second << std::endl;
 }
 
+// void garbage()
+// {
+//     std::cout << "\nEMPTY TEST\n";
+//     lib::map<char, int> emptier;
+
+//     emptier['a'] = 10;
+//     emptier['b'] = 20;
+//     emptier['c'] = 30;
+
+//     //while (!emptier.empty())
+//     {
+//         emptier.printTree();
+//         // std::cout << "size: " << emptier.size() << std::endl;
+//         // std::cout << emptier.begin()->first << " => " << emptier.begin()->second << '\n';
+//         emptier.erase(emptier.begin());
+//         emptier.printTree();
+//         // std::cout << "size: " << emptier.size() << std::endl;
+//         // std::cout << emptier.begin()->first << " => " << emptier.begin()->second << '\n';
+//     }
+// }
+
 void mapTest()
 {
     std::cout << "==========================TESTING MAP=======================================\n\n";
 
+    // garbage();
     mapIterators();
-    mapCapacity();
+    mapCapacity(); //broken
     mapElementAccess();
     mapModifiers();
     mapObservers();
-    mapOperations();
-    // mapExtra();
+    mapOperations(); //broken
+    mapExtra();
 }

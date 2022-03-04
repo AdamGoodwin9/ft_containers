@@ -69,7 +69,7 @@ namespace ft
         bst_iterator &operator++()
         {
             if (_node == _end_node)
-                throw std::out_of_range(MAP_ITERATOR_OUT_OF_RANGE);
+                return (*this);
             if (_node->right != NULL)
             {
                 _node = _node->right;
@@ -81,6 +81,7 @@ namespace ft
             }
             while (_node->parent != NULL)
             {
+            std::cout << _node->val.first << " - hey there\n";
                 if (_node->parent->left == _node)
                 {
                     _node = _node->parent;
@@ -88,7 +89,6 @@ namespace ft
                 }
                 _node = _node->parent;
             }
-            _end_node->parent = _node;
             _node = _end_node;
             return (*this);
         }

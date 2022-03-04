@@ -1,4 +1,6 @@
-make re
+make fclean
+make
+make std
 
 ./containers >> containers.txt
 ./std >> std.txt

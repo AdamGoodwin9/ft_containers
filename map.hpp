@@ -59,7 +59,7 @@ namespace ft
     private:
         Compare _comp;
         allocator_type _allocator;
-        bst<value_type, Compare, Alloc> _tree;
+        bst<value_type, Compare, Key, Alloc> _tree;
 
     public:
         // Member functions
@@ -197,7 +197,10 @@ namespace ft
 
         size_type erase(const key_type &k)
         {
-            return !(!_tree.erase(ft::make_pair<Key, T>(k, mapped_type())));
+             size_type old_size = size();
+            _tree.erase(ft::make_pair<Key, T>(k, mapped_type()));
+            return (old_size - size());
+            // return !(!_tree.erase(ft::make_pair<Key, T>(k, mapped_type())));
         }
 
         void erase(iterator first, iterator last)
@@ -206,8 +209,12 @@ namespace ft
             
             while (position != last)
             {
+                std::cout << "->" << std::endl;
+                std::cout << "Erasing " << position->first << std::endl;
                 _tree.erase(*position);
+                std::cout << "incrementing" << std::endl;
                 position++;
+                std::cout << "erased" << std::endl;
             }
         }
 
@@ -322,6 +329,12 @@ namespace ft
         }
 
 #pragma endregion
+
+        void printTree()
+        {
+            _tree.printTree();
+        }
+
 
     private:
         iterator new_iterator(bst_node<value_type> *node)
