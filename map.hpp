@@ -29,7 +29,8 @@ namespace ft
         typedef typename allocator_type::const_pointer const_pointer;
 
         typedef ft::bst_iterator<value_type> iterator;
-        typedef ft::bidirectional_iterator<const value_type> const_iterator; // TO do 
+        typedef ft::bst_const_iterator<value_type> const_iterator;
+        // typedef ft::bidirectional_iterator<const value_type> const_iterator; // TO do 
 
         typedef ft::reverse_iterator<iterator> reverse_iterator;
         typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -348,7 +349,7 @@ namespace ft
         {
             return iterator(node, _tree.get_end_node());
         }
-        const_iterator new_const_iterator(bst_node<value_type> *node)
+        const_iterator new_const_iterator(bst_node<value_type> *node) const
         {
             return const_iterator(node, _tree.get_end_node());
         }

@@ -322,22 +322,7 @@ void mapExtra()
 
 void garbage()
 {
-    std::cout << "\nCOUNT TEST\n";
-    lib::map<char, int> counter;
-    char c;
-
-    counter['a'] = 101;
-    counter['c'] = 202;
-    counter['f'] = 303;
-
-    for (c = 'a'; c < 'h'; c++)
-    {
-        std::cout << c;
-        if (counter.count(c) > 0)
-            std::cout << " is an element of counter.\n";
-        else
-            std::cout << " is not an element of counter.\n";
-    }
+    
 }
 
 void mapTest()
@@ -351,5 +336,5 @@ void mapTest()
     mapModifiers();
     mapObservers();
     mapOperations();
-    // mapExtra();
+    mapExtra();
 }
