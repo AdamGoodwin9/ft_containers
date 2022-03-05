@@ -47,12 +47,28 @@ namespace ft
 
         node* insert(const T val) { return insert(root, val); }
 
-        void erase(const T &val) { return erase(root, val); }
+        void erase(const T &val)
+        {
+            erase(root, val);
+            end_node->parent = max(root);
+        }
 
         void clear()
         {
             clear(root);
             root = end_node;
+        }
+
+        node* max(node* n) const
+        {
+            node* current = n;
+
+            while (current && current->right)
+            {
+                current = current->right;
+            }
+
+            return current;
         }
 
         node* min(node* n) const
