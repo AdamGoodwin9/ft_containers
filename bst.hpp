@@ -17,7 +17,7 @@ namespace ft
         bst_node* right;
     };
     
-    template <class T, class Compare, class lol, class Alloc = std::allocator<T> >
+    template <class T, class Compare, class Key, class Alloc = std::allocator<T> >
     class bst
     {
     public:
@@ -38,9 +38,9 @@ namespace ft
         bst() : size(0), root(NULL), compare(), allocator()
         {
             node end = {T(), NULL, NULL, NULL};
-
             end_node = nodeAllocator.allocate(1);
             nodeAllocator.construct(end_node, end);
+            root = end_node;
         }
 
         node* search(const T val) const { return search(root, val); }
@@ -136,7 +136,7 @@ namespace ft
         void erase(node *&root, const T &val)
         {
             node *cur = search(val);
-            if (cur == NULL)
+            if (cur == end_node)
                 return ;
 
             if (cur->left == NULL && cur->right == NULL)
@@ -160,7 +160,7 @@ namespace ft
                 T tmpval = tmp->val;
                 erase(root, tmp->val);
 
-                lol* ptr = const_cast<lol*>(&(cur->val.first));
+                Key* ptr = const_cast<Key*>(&(cur->val.first));
                 *ptr = tmpval.first;
                 cur->val.second = tmpval.second;
             }
@@ -185,7 +185,7 @@ namespace ft
 
         node* insert(node*& n, T val)
         {
-            if (!n)
+            if (n == end_node)
             {
                 n = create(val, NULL);
                 return n;
@@ -280,7 +280,7 @@ namespace ft
                     
         //             // n->val = make_pair(temp.first, temp.second);
         //             // n->val = temp;
-        //             lol* ptr = const_cast<lol*>(&(n->val.first));
+        //             Key* ptr = const_cast<Key*>(&(n->val.first));
         //             *ptr = temp.first;
 
         //             // n->val.first = temp.first;
