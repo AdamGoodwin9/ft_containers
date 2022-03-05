@@ -40,7 +40,7 @@ void	is_empty(T const &mp)
 	std::cout << "is_empty: " << mp.empty() << std::endl;
 }
 
-int		main(void)
+int		main2(void)
 {
 	std::list<T3> lst;
 	unsigned int lst_size = 7;
@@ -71,21 +71,21 @@ int		main(void)
 	return (0);
 }
 
-// int main()
-// {
-//     std::cout << "Running using namespace: ";
-// #ifdef USE_STD
-//     std::cout << "std";
-// #else
-//     std::cout << "ft";
-// #endif
-//     std::cout << std::endl << std::endl;
+int main()
+{
+    std::cout << "Running using namespace: ";
+#ifdef USE_STD
+    std::cout << "std";
+#else
+    std::cout << "ft";
+#endif
+    std::cout << std::endl << std::endl;
 
-//     vectorTest();
-//     stackTest();
-//     mapTest();
+    vectorTest();
+    stackTest();
+    mapTest();
 
-//     std::cout << std::endl << std::endl;
+    std::cout << std::endl << std::endl;
 
-//     return 0;
-// }
+    return 0;
+}

@@ -322,6 +322,25 @@ void mapExtra()
 
 void garbage()
 {
+    lib::map<int, std::string> map;
+
+    map.insert(lib::make_pair(0, "zero"));
+    map.insert(lib::make_pair(30, "thirty"));
+    map.insert(lib::make_pair(40, "forty"));
+    map.insert(lib::make_pair(20, "twenty"));
+    map.insert(lib::make_pair(10, "ten"));
+
+    map.printTree();
+    map.erase(30);
+    map.printTree();
+    // map.erase(4);
+    // map.printTree();
+    // map.erase(1);
+    // map.printTree();
+    // map.erase(2);
+    // map.printTree();
+
+
     
 }
 
@@ -329,12 +348,12 @@ void mapTest()
 {
     std::cout << "==========================TESTING MAP=======================================\n\n";
 
-    // garbage();
-    mapIterators();
-    mapCapacity();
-    mapElementAccess();
-    mapModifiers();
-    mapObservers();
-    mapOperations();
-    mapExtra();
+    garbage();
+    // mapIterators();
+    // mapCapacity();
+    // mapElementAccess();
+    // mapModifiers();
+    // mapObservers();
+    // mapOperations();
+    // mapExtra();
 }
