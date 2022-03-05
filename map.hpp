@@ -258,7 +258,14 @@ namespace ft
 
         size_type count(const key_type &k) const
         {
-            return !(!_tree.search(ft::make_pair<Key, T>(k, mapped_type())));
+            if (_tree.search(ft::make_pair(k, mapped_type())) == _tree.get_end_node())
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
         }
 
         iterator lower_bound(const key_type &k)

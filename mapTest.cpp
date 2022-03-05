@@ -322,36 +322,22 @@ void mapExtra()
 
 void garbage()
 {
-    std::cout << "\nERASE TEST\n";
-    lib::map<char, int> eraser;
-    lib::map<char, int>::iterator eraseit;
+    std::cout << "\nCOUNT TEST\n";
+    lib::map<char, int> counter;
+    char c;
 
-    // insert some values:
-    eraser['a'] = 10;
-    eraser['b'] = 20;
-    eraser['c'] = 30;
-    eraser['d'] = 40;
-    eraser['e'] = 50;
-    eraser['f'] = 60;
+    counter['a'] = 101;
+    counter['c'] = 202;
+    counter['f'] = 303;
 
-    // eraser.printTree();
-    // eraseit = eraser.find('b');
-    // eraser.erase(eraseit); // erasing by iterator
-    // eraser.printTree();
-
-
-    // eraser.erase('c'); // erasing by key
-    // eraser.printTree();
-
-    // eraseit = eraser.find('e');
-    // eraser.erase(eraseit, eraser.end()); // erasing by range
-    // eraser.printTree();
-
-    // show content:
-    for (eraseit = eraser.begin(); eraseit != eraser.end(); ++eraseit)
-        std::cout << eraseit->first << " => " << eraseit->second << '\n';
-
-    std::cout << eraser.size() << std::endl;
+    for (c = 'a'; c < 'h'; c++)
+    {
+        std::cout << c;
+        if (counter.count(c) > 0)
+            std::cout << " is an element of counter.\n";
+        else
+            std::cout << " is not an element of counter.\n";
+    }
 }
 
 void mapTest()
@@ -359,11 +345,11 @@ void mapTest()
     std::cout << "==========================TESTING MAP=======================================\n\n";
 
     // garbage();
-    // mapIterators();
-    // mapCapacity();
-    // mapElementAccess();
-    // mapModifiers();
-    // mapObservers();
-    mapOperations(); //broken
+    mapIterators();
+    mapCapacity();
+    mapElementAccess();
+    mapModifiers();
+    mapObservers();
+    mapOperations();
     // mapExtra();
 }
