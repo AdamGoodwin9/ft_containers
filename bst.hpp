@@ -149,7 +149,7 @@ namespace ft
                         cur->parent->right = NULL;
                 }
                 else
-                    root = NULL;
+                    root = end_node;
                 size--;
                 nodeAllocator.destroy(cur);
                 nodeAllocator.deallocate(cur, 1);
@@ -176,7 +176,10 @@ namespace ft
                         cur->parent->right = child;
                 }
                 else
+                {
                     root = child;
+                    root->parent = NULL;
+                }
                 size--;
                 nodeAllocator.destroy(cur);
                 nodeAllocator.deallocate(cur, 1);
@@ -328,8 +331,10 @@ namespace ft
                     indent += "|  ";
                 }
 
-                std::cout << "(" << n->val.first << ", " << n->val.second << ")";
-                if (n->parent) std::cout << " : (" << n->parent->val.first << ", " << n->parent->val.second << ")";
+                std::cout << "(" << n->val.first << ", " << n->val.second << ")\t\t";
+                if (n->parent) std::cout << " p: (" << n->parent->val.first << ", " << n->parent->val.second << ")"; else std::cout << " p: (null)";
+                if (n->left) std::cout << " l: (" << n->left->val.first << ", " << n->left->val.second << ")"; else std::cout << " l: (null)";
+                if (n->right) std::cout << " r: (" << n->right->val.first << ", " << n->right->val.second << ")"; else std::cout << " r: (null)";
                 std::cout << std::endl;
                 printHelper(n->left, indent, false);
                 printHelper(n->right, indent, true);
