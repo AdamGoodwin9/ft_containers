@@ -322,26 +322,25 @@ void mapExtra()
 
 void garbage()
 {
-    lib::map<int, std::string> map;
+    std::cout << "\nCLEAR TEST\n";
+    lib::map<char, int> clearer;
 
-    map.insert(lib::make_pair(0, "zero"));
-    map.insert(lib::make_pair(30, "thirty"));
-    map.insert(lib::make_pair(40, "forty"));
-    map.insert(lib::make_pair(20, "twenty"));
-    map.insert(lib::make_pair(10, "ten"));
+    clearer['x'] = 100;
+    clearer['y'] = 200;
+    clearer['z'] = 300;
 
-    map.printTree();
-    map.erase(30);
-    map.printTree();
-    // map.erase(4);
-    // map.printTree();
-    // map.erase(1);
-    // map.printTree();
-    // map.erase(2);
-    // map.printTree();
+    std::cout << "clearer contains:\n";
+    for (lib::map<char, int>::iterator clearit = clearer.begin(); clearit != clearer.end(); ++clearit)
+        std::cout << clearit->first << " => " << clearit->second << '\n';
 
+    clearer.clear();
+    clearer['a'] = 1101;
+    clearer['b'] = 2202;
 
-    
+    std::cout << "clearer contains:\n";
+    for (lib::map<char, int>::iterator clearit = clearer.begin(); clearit != clearer.end(); ++clearit)
+        std::cout << clearit->first << " => " << clearit->second << '\n';
+    std::cout << "hey\n";
 }
 
 void mapTest()

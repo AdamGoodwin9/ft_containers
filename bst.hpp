@@ -49,9 +49,11 @@ namespace ft
 
         void erase(const T &val) { return erase(root, val); }
 
-        
-
-        void clear() { clear(root); }
+        void clear()
+        {
+            clear(root);
+            root = end_node;
+        }
 
         node* min(node* n) const
         {

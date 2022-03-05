@@ -81,8 +81,8 @@ int main()
 #endif
     std::cout << std::endl << std::endl;
 
-    vectorTest();
-    stackTest();
+    // vectorTest();
+    // stackTest();
     mapTest();
 
     std::cout << std::endl << std::endl;
