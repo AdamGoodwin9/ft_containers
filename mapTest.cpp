@@ -125,18 +125,18 @@ void mapModifiers()
     eraser['e'] = 50;
     eraser['f'] = 60;
 
-    eraser.printTree();
+    // eraser.printTree();
     eraseit = eraser.find('b');
     eraser.erase(eraseit); // erasing by iterator
-    eraser.printTree();
+    // eraser.printTree();
 
 
     eraser.erase('c'); // erasing by key
-    eraser.printTree();
+    // eraser.printTree();
 
     eraseit = eraser.find('e');
     eraser.erase(eraseit, eraser.end()); // erasing by range
-    eraser.printTree();
+    // eraser.printTree();
 
     // show content:
     for (eraseit = eraser.begin(); eraseit != eraser.end(); ++eraseit)
@@ -320,37 +320,50 @@ void mapExtra()
     std::cout << it->second << std::endl;
 }
 
-// void garbage()
-// {
-//     std::cout << "\nEMPTY TEST\n";
-//     lib::map<char, int> emptier;
+void garbage()
+{
+    std::cout << "\nERASE TEST\n";
+    lib::map<char, int> eraser;
+    lib::map<char, int>::iterator eraseit;
 
-//     emptier['a'] = 10;
-//     emptier['b'] = 20;
-//     emptier['c'] = 30;
+    // insert some values:
+    eraser['a'] = 10;
+    eraser['b'] = 20;
+    eraser['c'] = 30;
+    eraser['d'] = 40;
+    eraser['e'] = 50;
+    eraser['f'] = 60;
 
-//     //while (!emptier.empty())
-//     {
-//         emptier.printTree();
-//         // std::cout << "size: " << emptier.size() << std::endl;
-//         // std::cout << emptier.begin()->first << " => " << emptier.begin()->second << '\n';
-//         emptier.erase(emptier.begin());
-//         emptier.printTree();
-//         // std::cout << "size: " << emptier.size() << std::endl;
-//         // std::cout << emptier.begin()->first << " => " << emptier.begin()->second << '\n';
-//     }
-// }
+    // eraser.printTree();
+    // eraseit = eraser.find('b');
+    // eraser.erase(eraseit); // erasing by iterator
+    // eraser.printTree();
+
+
+    // eraser.erase('c'); // erasing by key
+    // eraser.printTree();
+
+    // eraseit = eraser.find('e');
+    // eraser.erase(eraseit, eraser.end()); // erasing by range
+    // eraser.printTree();
+
+    // show content:
+    for (eraseit = eraser.begin(); eraseit != eraser.end(); ++eraseit)
+        std::cout << eraseit->first << " => " << eraseit->second << '\n';
+
+    std::cout << eraser.size() << std::endl;
+}
 
 void mapTest()
 {
     std::cout << "==========================TESTING MAP=======================================\n\n";
 
     // garbage();
-    mapIterators();
-    mapCapacity(); //broken
-    mapElementAccess();
-    mapModifiers();
-    mapObservers();
+    // mapIterators();
+    // mapCapacity();
+    // mapElementAccess();
+    // mapModifiers();
+    // mapObservers();
     mapOperations(); //broken
-    mapExtra();
+    // mapExtra();
 }

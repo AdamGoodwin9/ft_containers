@@ -167,6 +167,7 @@ namespace ft
             else
             {
                 node *child = (cur->left) ? cur->left : cur->right;
+                child->parent = cur->parent;
                 if (cur != root)
                 {
                     if (cur == cur->parent->left)
@@ -327,7 +328,9 @@ namespace ft
                     indent += "|  ";
                 }
 
-                std::cout << "(" << n->val.first << ", " << n->val.second << ")" << std::endl;
+                std::cout << "(" << n->val.first << ", " << n->val.second << ")";
+                if (n->parent) std::cout << " : (" << n->parent->val.first << ", " << n->parent->val.second << ")";
+                std::cout << std::endl;
                 printHelper(n->left, indent, false);
                 printHelper(n->right, indent, true);
             }

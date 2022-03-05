@@ -209,12 +209,12 @@ namespace ft
             
             while (position != last)
             {
-                std::cout << "->" << std::endl;
-                std::cout << "Erasing " << position->first << std::endl;
+                // std::cout << "->" << std::endl;
+                // std::cout << "Erasing " << position->first << std::endl;
                 _tree.erase(*position);
-                std::cout << "incrementing" << std::endl;
+                // std::cout << "incrementing" << std::endl;
                 position++;
-                std::cout << "erased" << std::endl;
+                // std::cout << "erased" << std::endl;
             }
         }
 

@@ -81,7 +81,7 @@ namespace ft
             }
             while (_node->parent != NULL)
             {
-            std::cout << _node->val.first << " - hey there\n";
+            // std::cout << _node->val.first << " - hey there\n";
                 if (_node->parent->left == _node)
                 {
                     _node = _node->parent;
