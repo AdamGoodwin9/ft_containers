@@ -302,9 +302,22 @@ void mapExtra()
 {
     lib::map<int, std::string> map;
     map.insert(lib::make_pair(4, "four"));
+    map.insert(lib::make_pair(4, "four"));
     map.insert(lib::make_pair(3, "three"));
     map.insert(lib::make_pair(2, "two"));
     map.insert(lib::make_pair(1, "one"));
+
+    map.printTree();
+
+    map.clear();
+
+    map.insert(lib::make_pair(4, "four"));
+    map.insert(lib::make_pair(4, "four"));
+    map.insert(lib::make_pair(3, "three"));
+    map.insert(lib::make_pair(2, "two"));
+    map.insert(lib::make_pair(1, "one"));
+
+    map.printTree();
 
     lib::map<int, std::string>::iterator it = map.begin();
     std::cout << it->second << std::endl;
@@ -322,37 +335,22 @@ void mapExtra()
 
 void garbage()
 {
-    std::cout << "\nCLEAR TEST\n";
-    lib::map<char, int> clearer;
-
-    clearer['x'] = 100;
-    clearer['y'] = 200;
-    clearer['z'] = 300;
-
-    std::cout << "clearer contains:\n";
-    for (lib::map<char, int>::iterator clearit = clearer.begin(); clearit != clearer.end(); ++clearit)
-        std::cout << clearit->first << " => " << clearit->second << '\n';
-
-    clearer.clear();
-    clearer['a'] = 1101;
-    clearer['b'] = 2202;
-
-    std::cout << "clearer contains:\n";
-    for (lib::map<char, int>::iterator clearit = clearer.begin(); clearit != clearer.end(); ++clearit)
-        std::cout << clearit->first << " => " << clearit->second << '\n';
-    std::cout << "hey\n";
+    
 }
 
 void mapTest()
 {
     std::cout << "==========================TESTING MAP=======================================\n\n";
 
-    garbage();
+    // garbage();
     // mapIterators();
     // mapCapacity();
     // mapElementAccess();
     // mapModifiers();
     // mapObservers();
     // mapOperations();
-    // mapExtra();
+
+    //todo write a manual test for insertAllBF to see if it works, with and without clear, with one or two maps
+
+    mapExtra();
 }

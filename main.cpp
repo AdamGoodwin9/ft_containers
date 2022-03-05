@@ -40,7 +40,7 @@ void	is_empty(T const &mp)
 	std::cout << "is_empty: " << mp.empty() << std::endl;
 }
 
-int		main2(void)
+int		test(void)
 {
 	std::list<T3> lst;
 	unsigned int lst_size = 7;
@@ -83,7 +83,9 @@ int main()
 
     // vectorTest();
     // stackTest();
-    mapTest();
+    // mapTest();
+
+    test();
 
     std::cout << std::endl << std::endl;
 
