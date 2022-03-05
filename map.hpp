@@ -210,12 +210,9 @@ namespace ft
             
             while (position != last)
             {
-                // std::cout << "->" << std::endl;
-                // std::cout << "Erasing " << position->first << std::endl;
-                _tree.erase(*position);
-                // std::cout << "incrementing" << std::endl;
+                iterator toErase = position;
                 position++;
-                // std::cout << "erased" << std::endl;
+                _tree.erase(*toErase);
             }
         }
 
