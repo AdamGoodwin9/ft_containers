@@ -78,7 +78,10 @@ namespace ft
             insert(first, last);
         }
 
-        map(const map &x) : _comp(x._comp), _tree(x._tree) { }
+        map(const map &x) : _comp(x._comp), _tree() 
+        { 
+            _tree = x._tree;
+        }
 
         ~map() { }
 
