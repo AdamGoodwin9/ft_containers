@@ -194,6 +194,24 @@ template <class InputIterator>
         typedef Category iterator_category;
     };
 
+    template <class Category, class T,
+              class Distance = ptrdiff_t,
+              class Pointer = T const *,
+              class Reference = T const &>
+    class const_iterator
+    {
+    public:
+        typedef T value_type;
+
+        typedef Distance difference_type;
+
+        typedef Pointer pointer;
+
+        typedef Reference reference;
+
+        typedef Category iterator_category;
+    };
+
     template <class T>
     class bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, T>
     {

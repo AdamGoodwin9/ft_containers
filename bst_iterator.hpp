@@ -148,10 +148,10 @@ namespace ft
     {
     public:
         typedef T value_type;
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category iterator_category;
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::difference_type difference_type;
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::pointer pointer;
-        typedef typename ft::iterator<ft::bidirectional_iterator_tag, value_type>::reference reference;
+        typedef typename ft::const_iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category iterator_category;
+        typedef typename ft::const_iterator<ft::bidirectional_iterator_tag, value_type>::difference_type difference_type;
+        typedef typename ft::const_iterator<ft::bidirectional_iterator_tag, value_type>::pointer pointer;
+        typedef typename ft::const_iterator<ft::bidirectional_iterator_tag, value_type>::reference reference;
         typedef bst_node<value_type> node;
 
     private:
