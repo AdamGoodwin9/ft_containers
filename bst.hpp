@@ -40,21 +40,20 @@ namespace ft
             end_node = nodeAllocator.allocate(1);
             nodeAllocator.construct(end_node, end);
             root = end_node;
-            
-                    std::cout << "\n\nC\n\n";
+            std::cout << "\n\nC\n\n";
         }
 
         bst &operator=(bst const &other)
         {
             clear();
             std::cout << "cleared " << size << std::endl;
-            printTree();
+            // printTree();
             other.printTree();
             std::cout << "heyyy ------( ͡° ͜ʖ ͡°)---------> " << end_node << std::endl;
             insertAllBF(other.root);
             std::cout << "later ---------------> " << end_node << std::endl;
-            end_node->parent = max(root);
             printTree();
+            end_node->parent = max(root);
             return (*this);
         }
 
@@ -72,7 +71,8 @@ namespace ft
         {
             clear(root);
             root = end_node;
-                    std::cout << "\n\nD\n\n";
+            end_node->parent = NULL;
+            std::cout << "\n\nD\n\n";
         }
 
         node *max(node *n) const
@@ -170,8 +170,10 @@ namespace ft
 
             if (k == 1)
             {
-                std::cout << "inserting (" << n->val.first << ", " << n->val.second << "), r(" << root->val.first << ", " << root->val.second << "), e(" << end_node->val.first << ", " << end_node->val.second << ")" << std::endl;
+                std::cout << "inserting (" << n << " - ("<< n->val.first << ", " << n->val.second << "), r(" << root->val.first << ", " << root->val.second << "), e: " << end_node << std::endl;
                 insert(n->val);
+                printTree();
+                std::cout << "root: " << root << std::endl;
             }
             else if (k > 1)
             {
@@ -198,6 +200,7 @@ namespace ft
             node *ret = nodeAllocator.allocate(1);
             nodeAllocator.construct(ret, n);
 
+            std::cout << "ret: "<< ret << std::endl;
             if (end_node->parent == NULL || compare(end_node->parent->val.first, ret->val.first))
                 end_node->parent = ret;
             size++;
@@ -244,6 +247,7 @@ namespace ft
                 {
                     std::cout << "\n\nA\n\n";
                     root = end_node;
+                    end_node->parent = NULL;
                 }
                 size--;
                 nodeAllocator.destroy(cur);
@@ -287,9 +291,11 @@ namespace ft
         {
             if (n == end_node)
             {
-                
+                std::cout << "n: " << n << " | " << end_node << std::endl;
                     std::cout << "\n\nHIT\n\n";
                 n = create(val, NULL);
+                std::cout << "rooooot: " << root << std::endl;
+                std::cout << "rooooot??: " << n << std::endl;
                 return n;
             }
 
