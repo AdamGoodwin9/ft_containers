@@ -307,8 +307,6 @@ void mapExtra()
     map.insert(lib::make_pair(2, "two"));
     map.insert(lib::make_pair(1, "one"));
 
-    // map.printTree();
-
     map.clear();
 
     map.insert(lib::make_pair(4, "four"));
@@ -317,14 +315,11 @@ void mapExtra()
     map.insert(lib::make_pair(2, "two"));
     map.insert(lib::make_pair(1, "one"));
 
-    // map.printTree();
-
     lib::map<int, std::string>::iterator it = map.begin();
     std::cout << it->second << std::endl;
 
     while (it != map.end())
     {
-        std::cout << "kiki\n";
         std::cout << it->first << std::endl;
         it++;
     }
@@ -333,16 +328,10 @@ void mapExtra()
     std::cout << it->second << std::endl;
 }
 
-void garbage()
-{
-    
-}
-
 void mapTest()
 {
     std::cout << "==========================TESTING MAP=======================================\n\n";
 
-    // garbage();
     mapIterators();
     mapCapacity();
     mapElementAccess();

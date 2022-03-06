@@ -41,6 +41,14 @@ namespace ft
             nodeAllocator.construct(end_node, end);
             root = end_node;
         }
+        
+        virtual ~bst()
+        {
+            clear();
+            
+            nodeAllocator.destroy(end_node);
+            nodeAllocator.deallocate(end_node, 1);
+        }
 
         bst &operator=(bst const &other)
         {

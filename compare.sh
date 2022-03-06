@@ -7,5 +7,5 @@ make std
 
 diff containers.txt std.txt
 
-# rm containers.txt
-# rm std.txt
+rm containers.txt
+rm std.txt
