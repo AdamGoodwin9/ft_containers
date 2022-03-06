@@ -14,9 +14,17 @@ class foo {
 		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
 		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
 		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
-		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
-		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
-		foo &operator=(value_type src) { this->value = src; return *this; };
+        void m(void)
+        {
+            std::cout << "You can't have me Jerry.\n";
+            std::cout << "foo::m called [" << this->value << "]" << std::endl;
+        };
+        void m(void) const
+        {
+            std::cout << "FUCK ME JERRY\n";
+            std::cout << "foo::m const called [" << this->value << "]" << std::endl;
+        };
+        foo &operator=(value_type src) { this->value = src; return *this; };
 		foo &operator=(foo const &src) {
 			if (this->_verbose || src._verbose)
 				std::cout << "foo::operator=(foo) CALLED" << std::endl;
@@ -122,7 +130,7 @@ int		test(void)
     std::cout << "\n\nA\n\n";
 	it->second.m();
     std::cout << "\n\nB\n\n";
-	ite->second.m(); //this is broken
+	ite->second.m(); //this is broken (should call the const m, but does not)
     std::cout << "\n\nC\n\n";
 
 	printPair(++it);
@@ -136,7 +144,7 @@ int		test(void)
 	printPair(ite--);
 
 	(*it).second.m();
-	(*ite).second.m(); //also broken
+	(*ite).second.m(); //also broken (should call the const m, but does not)
 
 	printPair(--it);
 	printPair(it--);
