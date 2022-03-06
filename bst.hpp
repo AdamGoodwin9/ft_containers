@@ -40,19 +40,12 @@ namespace ft
             end_node = nodeAllocator.allocate(1);
             nodeAllocator.construct(end_node, end);
             root = end_node;
-            std::cout << "\n\nC\n\n";
         }
 
         bst &operator=(bst const &other)
         {
             clear();
-            std::cout << "cleared " << size << std::endl;
-            // printTree();
-            other.printTree();
-            std::cout << "heyyy ------( ͡° ͜ʖ ͡°)---------> " << end_node << std::endl;
             insertAllBF(other.root);
-            std::cout << "later ---------------> " << end_node << std::endl;
-            printTree();
             end_node->parent = max(root);
             return (*this);
         }
@@ -72,7 +65,6 @@ namespace ft
             clear(root);
             root = end_node;
             end_node->parent = NULL;
-            std::cout << "\n\nD\n\n";
         }
 
         node *max(node *n) const
@@ -101,7 +93,6 @@ namespace ft
 
         void printTree() const
         {
-            std::cout << "printing tree\n\n";
             if (root)
             {
                 printHelper(root, "", true);
@@ -170,10 +161,7 @@ namespace ft
 
             if (k == 1)
             {
-                std::cout << "inserting (" << n << " - ("<< n->val.first << ", " << n->val.second << "), r(" << root->val.first << ", " << root->val.second << "), e: " << end_node << std::endl;
                 insert(n->val);
-                printTree();
-                std::cout << "root: " << root << std::endl;
             }
             else if (k > 1)
             {
@@ -200,7 +188,6 @@ namespace ft
             node *ret = nodeAllocator.allocate(1);
             nodeAllocator.construct(ret, n);
 
-            std::cout << "ret: "<< ret << std::endl;
             if (end_node->parent == NULL || compare(end_node->parent->val.first, ret->val.first))
                 end_node->parent = ret;
             size++;
@@ -245,7 +232,6 @@ namespace ft
                 }
                 else
                 {
-                    std::cout << "\n\nA\n\n";
                     root = end_node;
                     end_node->parent = NULL;
                 }
@@ -277,7 +263,6 @@ namespace ft
                 else
                 {
                     
-                    std::cout << "\n\nB\n\n";
                     root = child;
                     root->parent = NULL;
                 }
@@ -289,13 +274,9 @@ namespace ft
 
         node *insert(node *&n, T val)
         {
-            if (n == end_node)
+            if (n == end_node || n == NULL)
             {
-                std::cout << "n: " << n << " | " << end_node << std::endl;
-                    std::cout << "\n\nHIT\n\n";
                 n = create(val, NULL);
-                std::cout << "rooooot: " << root << std::endl;
-                std::cout << "rooooot??: " << n << std::endl;
                 return n;
             }
 
@@ -330,89 +311,9 @@ namespace ft
             }
         }
 
-        // void fixRoot(node *n, node *newRoot)
-        // {
-        //     if (!n || !root)
-        //         return;
-
-        //     if (n->val.first == root->val.first)
-        //     {
-
-        //         root = newRoot;
-        //     }
-        // }
-
-        // node* erase(node* n, T val)
-        // {
-        //     if (!n) return NULL;
-
-        //     if (n->val.first == val.first)
-        //     {
-        //         if (n->left == NULL && n->right == NULL)
-        //         {
-        //             nodeAllocator.destroy(n);
-        //             nodeAllocator.deallocate(n, 1);
-        //             size--;
-        //             fixRoot(n, NULL);
-        //             return NULL;
-        //         }
-        //         else if (n->left == NULL)
-        //         {
-        //             n->right->parent = n->parent;
-
-        //             node* ret = n->right;
-        //             nodeAllocator.destroy(n);
-        //             nodeAllocator.deallocate(n, 1);
-        //             size--;
-        //             fixRoot(n, ret);
-        //             return ret;
-        //         }
-        //         else if (n->right == NULL)
-        //         {
-        //             n->left->parent = n->parent;
-
-        //             node* ret = n->left;
-        //             nodeAllocator.destroy(n);
-        //             nodeAllocator.deallocate(n, 1);
-        //             size--;
-        //             fixRoot(n, ret);
-        //             return ret;
-        //         }
-        //         else
-        //         {
-        //             T temp = min(n->right)->val;
-
-        //             // node* replacement = create(temp, n->parent);
-        //             // replacement->left = n->left;
-        //             // replacement->right = n->right;
-        //             // *n = *replacement; //LEAKY LEAKY BROKEN
-
-        //             // n->val = make_pair(temp.first, temp.second);
-        //             // n->val = temp;
-        //             Key* ptr = const_cast<Key*>(&(n->val.first));
-        //             *ptr = temp.first;
-
-        //             // n->val.first = temp.first;
-        //             n->val.second = temp.second;
-        //             fixRoot(n, min(n->right));
-        //             n->right = erase(n->right, temp);
-        //         }
-        //     }
-        //     else if (compare(val.first, n->val.first))
-        //     {
-        //         n->left = erase(n->left, val);
-        //     }
-        //     else
-        //     {
-        //         n->right = erase(n->right, val);
-        //     }
-
-        //     return n;
-        // }
-
         void clear(node *n)
         {
-            if (!n)
+            if (!n || n == end_node)
                 return;
 
             clear(n->left);
@@ -420,6 +321,7 @@ namespace ft
 
             nodeAllocator.destroy(n);
             nodeAllocator.deallocate(n, 1);
+            size--;
         }
 
         void printHelper(const node *n, std::string indent, bool last) const
