@@ -307,7 +307,7 @@ void mapExtra()
     map.insert(lib::make_pair(2, "two"));
     map.insert(lib::make_pair(1, "one"));
 
-    map.printTree();
+    // map.printTree();
 
     map.clear();
 
@@ -317,7 +317,7 @@ void mapExtra()
     map.insert(lib::make_pair(2, "two"));
     map.insert(lib::make_pair(1, "one"));
 
-    map.printTree();
+    // map.printTree();
 
     lib::map<int, std::string>::iterator it = map.begin();
     std::cout << it->second << std::endl;
@@ -343,14 +343,11 @@ void mapTest()
     std::cout << "==========================TESTING MAP=======================================\n\n";
 
     // garbage();
-    // mapIterators();
-    // mapCapacity();
-    // mapElementAccess();
-    // mapModifiers();
-    // mapObservers();
-    // mapOperations();
-
-    //todo write a manual test for insertAllBF to see if it works, with and without clear, with one or two maps
-
+    mapIterators();
+    mapCapacity();
+    mapElementAccess();
+    mapModifiers();
+    mapObservers();
+    mapOperations();
     mapExtra();
 }

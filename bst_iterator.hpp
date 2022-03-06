@@ -24,6 +24,8 @@ namespace ft
         node *_end_node;
 
     public:
+        node* get_node() const { return _node; }
+        node* get_end_node() const { return _end_node; }
 
         bst_iterator() : _node(NULL), _end_node(NULL)
         {
@@ -157,6 +159,8 @@ namespace ft
         node *_end_node;
 
     public:
+        node* get_node() const { return _node; }
+        node* get_end_node() const { return _end_node; }
 
         bst_const_iterator() : _node(NULL), _end_node(NULL)
         {
@@ -166,10 +170,10 @@ namespace ft
         {
         }
 
-        bst_const_iterator(bst_const_iterator const &that) : _node(that._node), _end_node(that._end_node)
+        bst_const_iterator(bst_const_iterator const &that) : _node(that.get_node()), _end_node(that.get_end_node())
         {
         }
-        bst_const_iterator(bst_iterator<T> const &that) : _node(that._node), _end_node(that._end_node)
+        bst_const_iterator(bst_iterator<T> const &that) : _node(that.get_node()), _end_node(that.get_end_node())
         {
         }
         
