@@ -114,7 +114,6 @@ namespace ft
         typedef T1 first_type;
         typedef T2 second_type;
         T1 first;
-        bool linux[32];
         T2 second;
 
         pair(): first(), second()

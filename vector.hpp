@@ -34,7 +34,7 @@ namespace ft
         
         typedef typename allocator_type::size_type size_type;
 
-    private:
+    protected:
         pointer _array;
         size_type _size;
         size_type _capacity;

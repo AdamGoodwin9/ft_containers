@@ -57,7 +57,7 @@ namespace ft
             }
         };
 
-    private:
+    protected:
         Compare _comp;
         allocator_type _allocator;
         bst<value_type, Compare, Key, Alloc> _tree;
@@ -344,7 +344,7 @@ namespace ft
         }
 
 
-    private:
+    protected:
         iterator new_iterator(bst_node<value_type> *node)
         {
             return iterator(node, _tree.get_end_node());

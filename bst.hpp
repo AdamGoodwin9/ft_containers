@@ -28,10 +28,8 @@ namespace ft
         typedef Alloc allocator_type;
         typedef typename allocator_type::size_type size_type;
         typedef bst_node<T> node;
-        bool linux[200];
 
-
-    private:
+    protected:
         size_type size;
         node *root;
         Compare compare;
@@ -147,7 +145,7 @@ namespace ft
             }
         }
 
-    private:
+    protected:
         int height(node *n)
         {
             if (n == NULL)
