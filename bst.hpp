@@ -15,6 +15,10 @@ namespace ft
         bst_node *parent;
         bst_node *left;
         bst_node *right;
+
+        bst_node(T val) : val(val), parent(NULL), left(NULL), right(NULL)
+        {
+        }
     };
 
     template <class T, class Compare, class Key, class Alloc = std::allocator<T> >
@@ -24,6 +28,8 @@ namespace ft
         typedef Alloc allocator_type;
         typedef typename allocator_type::size_type size_type;
         typedef bst_node<T> node;
+        bool linux[200];
+
 
     private:
         size_type size;
@@ -36,7 +42,7 @@ namespace ft
     public:
         bst() : size(0), root(NULL), compare(), allocator()
         {
-            node end = {T(), NULL, NULL, NULL};
+            node end((T()));
             end_node = nodeAllocator.allocate(1);
             nodeAllocator.construct(end_node, end);
             root = end_node;
@@ -190,7 +196,7 @@ namespace ft
 
         node *create(const T val, node *parent)
         {
-            node n = {val, NULL, NULL, NULL};
+            node n(val);
             n.parent = parent;
 
             node *ret = nodeAllocator.allocate(1);
