@@ -1,4 +1,4 @@
-#include "Tests.hpp"
+#include "tests.hpp"
 
 void mapIterators()
 {
