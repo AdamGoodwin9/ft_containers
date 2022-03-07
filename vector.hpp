@@ -84,7 +84,7 @@ namespace ft
             assign(x.begin(), x.end());
             return *this;
         }
-#pragma region Iterators //done
+#pragma region Iterators
         iterator begin()
         {
             return _array;
@@ -125,7 +125,7 @@ namespace ft
             return reverse_iterator(this->begin());
         }
 #pragma endregion Iterators
-#pragma region Capacity //done
+#pragma region Capacity
         size_type size() const
         {
             return _size;
@@ -188,7 +188,7 @@ namespace ft
             _capacity = new_capacity;
         }
 #pragma endregion Capacity
-#pragma region Element access //done
+#pragma region Element access
         reference operator[] (size_type n)
         {
             return _array[n];
@@ -376,7 +376,7 @@ namespace ft
             _size = 0;
         }
 #pragma endregion Modifiers
-#pragma region Allocator //done
+#pragma region Allocator
         allocator_type get_allocator() const
         {
             return _allocator;

@@ -30,7 +30,6 @@ namespace ft
 
         typedef ft::bst_iterator<value_type> iterator;
         typedef ft::bst_const_iterator<value_type> const_iterator;
-        // typedef ft::bidirectional_iterator<const value_type> const_iterator; // TO do 
 
         typedef ft::reverse_iterator<iterator> reverse_iterator;
         typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -135,7 +134,7 @@ namespace ft
 
 #pragma endregion Iterators
 
-#pragma region Capacity //done
+#pragma region Capacity
 
         bool empty() const
         {
@@ -154,7 +153,7 @@ namespace ft
 
 #pragma endregion Capacity
 
-#pragma region ElementAccess //done
+#pragma region ElementAccess
 
         mapped_type &operator[](const key_type &k)
         {
@@ -163,7 +162,7 @@ namespace ft
 
 #pragma endregion ElementAccess
 
-#pragma region Modifiers //done
+#pragma region Modifiers
 
         pair<iterator, bool> insert(const value_type &val)
         {
@@ -231,7 +230,7 @@ namespace ft
 
 #pragma endregion Modifiers
 
-#pragma region Observers //done
+#pragma region Observers
 
         key_compare key_comp() const
         {
@@ -245,7 +244,7 @@ namespace ft
 
 #pragma endregion Observers
 
-#pragma region Operations //done
+#pragma region Operations
 
         iterator find(const key_type &k)
         {
@@ -329,7 +328,7 @@ namespace ft
 
 #pragma endregion Operations
 
-#pragma region Allocator //done
+#pragma region Allocator
 
         allocator_type get_allocator() const
         {

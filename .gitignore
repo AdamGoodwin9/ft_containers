@@ -2,7 +2,6 @@
 
 obj
 containers
-containers_test
 
 obj_std
 std
@@ -11,5 +10,3 @@ std
 *.out
 *.txt
 *.swp
-
-containers_test
