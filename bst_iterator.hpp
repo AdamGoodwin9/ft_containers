@@ -86,7 +86,6 @@ namespace ft
             }
             while (_node->parent != NULL)
             {
-            // std::cout << _node->val.first << " - hey there\n";
                 if (_node->parent->left == _node)
                 {
                     _node = _node->parent;
@@ -131,8 +130,6 @@ namespace ft
                 _node = _node->parent;
             }
             throw std::out_of_range(MAP_ITERATOR_OUT_OF_RANGE);
-            // _node = NULL;
-            // return (*this);
         }
 
         bst_iterator operator--(int)
@@ -223,7 +220,6 @@ namespace ft
             }
             while (_node->parent != NULL)
             {
-            // std::cout << _node->val.first << " - hey there\n";
                 if (_node->parent->left == _node)
                 {
                     _node = _node->parent;
@@ -268,8 +264,6 @@ namespace ft
                 _node = _node->parent;
             }
             throw std::out_of_range(MAP_ITERATOR_OUT_OF_RANGE);
-            // _node = NULL;
-            // return (*this);
         }
 
         bst_const_iterator operator--(int)

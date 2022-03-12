@@ -203,7 +203,6 @@ namespace ft
              size_type old_size = size();
             _tree.erase(ft::make_pair<Key, T>(k, mapped_type()));
             return (old_size - size());
-            // return !(!_tree.erase(ft::make_pair<Key, T>(k, mapped_type())));
         }
 
         void erase(iterator first, iterator last)
